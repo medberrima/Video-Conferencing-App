@@ -1,0 +1,44 @@
+
+<link rel="stylesheet" href="css/UI/RoomFooter.css" />
+
+<div class="main__controls">
+  <div class="main__controls__block">
+    <div class="main__controls__button mute-btn" onclick="muteUnmute()">
+      <i class="fas fa-microphone-alt"></i>
+      <span>Mute</span>
+    </div>
+    <div class="main__controls__button video-btn" onclick="playStop()">
+      <i class="fas fa-video"></i>
+      <span>Stop Video</span>
+    </div>
+  </div>
+  <div class="main__controls__block mid-block">
+    <div class="main__controls__button" onclick="invite()">
+      <i class="fad fa-user-plus"></i>
+      <span>Invite</span>
+    </div>
+    <div class="main__controls__button share-btn " id="shareBtn">
+      <img src="img/start-share.svg" alt="start-share" /> 
+      <span>Share Screen</span>
+    </div>
+    <div class="main__controls__button record-btn " id="recordBtn">
+      <img src="img/start-recording.svg" alt="start-recording" id="RecordImg" /> 
+      <span>Record</span>
+      <a id="downloadLink" download="mediarecorder.webm" name="mediarecorder.webm" href></a>
+    </div>
+    <div class="main__controls__button chat-btn" id="chats" onclick="handleScreen(this)">
+      <i class="fas fa-comment-alt"></i>
+      <span>Chat</span>
+    </div>
+    <div class="main__controls__button users-btn" id="participants" onclick="handleScreen(this)">
+      <i class="fas fa-user-friends"></i>
+      <span>Participants</span>
+      <span id="nb_Participants"></span>
+    </div>
+  </div>
+  <div class="main__controls__block">
+    <div class="main__controls__button" id="end-call" onclick="location.href='/'">
+      <img src="img/end-call.svg" alt="end-call" />
+    </div>
+  </div>
+</div>

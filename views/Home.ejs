@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MIT - Meeting</title>
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.14.0/css/all.css" />
+  <link rel="stylesheet" href="/css/Home.css" />
+  
+</head>
+<body>
+  <div class="home-page">
+    <%- include('UI/Header') %>
+      <div class="body">
+        <div class="left-side">
+          <div class="content">
+            <h2>The First Smart University In Africa</h2>
+            <p>
+              "Greater Specialization, Professionalization, Internationalization
+              with diploma and Certification of each course, Internships and
+              placement in high-tech professions"
+            </p>
+            <div class="action-btn">
+              <a class="btn blue" href="/room">
+                <i class="icon-block fas fa-video"></i>
+                New Meeting
+              </a>
+              <div class="input-block">
+                <div class="input-section">
+                  <i class="icon-block fas fa-keyboard"></i>
+                  <input placeholder="Enter a code or link" id="code" onchange='join()' />
+                </div>
+                <a class="btn blue" href="" id="join">Join</a>
+              </div>
+            </div>
+          </div>
+          <div class="help-text"><a href="/NotFound">Learn more</a> about MIT</div>
+        </div>
+        <div class="right-side">
+          <div class="content">
+            <img alt="img-gg" src="https://mit.tn/static/img/it-banner/mit-etudiant-polytech.webp" />
+          </div>
+        </div>
+      </div>
+  </div>
+  <script>
+    function join() {
+      var code = document.getElementById("code").value;
+      document.getElementById('join').href = code;
+    }
+  </script>
+</body>
+
+</html>

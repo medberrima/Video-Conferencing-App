@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MIT - Room</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.14.0/css/all.css" />
+  <link rel="stylesheet" href="css/room.css" />
+  <script>
+    const ROOM_ID = " <%= roomId %> ";
+  </script>
+  <script src="js/script.js" defer></script>
+  <script src="js/media.js" defer></script>
+  <script src="js/record.js" defer></script>
+  <!-- <script src="https://webrtc.github.io/adapter/adapter-latest.js" defer></script> -->
+  <script src="js/screen-sharing.js" defer></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
+</head>
+<body >
+  <%- include('UI/RoomHeader') %>
+  <%- include('UI/RoomInfo') %>
+  <div id="notification"></div>
+  <main role="main">
+    <div class="main__left screen-full">
+      <div class="main__videos">
+        <div id="video-grid">
+        </div>
+        <video id="screen-sharing" autoplay></video>
+      </div>
+      <%- include('UI/RoomFooter') %>
+    </div>
+    <%- include('UI/ChatBox') %>
+  </main>
+  <script src="https://webrtchacks.github.io/adapter/adapter-latest.js"></script>
+</body>
+</html>
+<!-- <div class="video__element"> 
+  <video ></video>
+  <div id="avtar">
+    ID : <span> 568789 ( You ) </span>  
+  </div> 
+  <div class="thumbnail">
+    <h1>med</h1>
+  </div>
+</div> -->

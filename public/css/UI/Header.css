@@ -1,0 +1,26 @@
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  box-sizing: border-box;
+  height: 50px;
+}
+.header .logo {
+  display: flex;
+  align-items: center;
+  width: 124px;
+}
+.header .logo img {
+  width: 100%;
+}
+
+.header .profile{
+  font-size: 32px;
+  color: #0163a9;
+  cursor: pointer;
+}
+
+.date{
+  display: flex;
+}

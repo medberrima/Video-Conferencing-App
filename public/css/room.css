@@ -1,0 +1,190 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+::-webkit-scrollbar {width: 6px; height: 5px; background: #fff  ; }
+::-webkit-scrollbar-thumb { background-color: #0163a9; -webkit-border-radius: 1ex; }
+
+main {
+  height: 100vh;
+  display: flex;
+}
+
+.main__left {
+  flex: 0.8;
+  display: flex;
+  flex-direction: column;
+}
+
+.main__right {
+  flex: 0.2;
+  z-index:1;
+}
+
+.main__videos {
+  flex-grow: 1;
+  background: linear-gradient(0deg, rgba(1,99,169,1) 0%, rgba(0,151,193,1) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#video-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+/* 
+#share-screen{
+  display: block;
+  width:  1920px ;
+  height:  1080px ;
+  background-color: red;
+} */
+#video-grid video {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.video__element {
+  background-color: rgb(87, 0, 0);
+  margin: 5px;
+  position: relative;
+  height: 248px;
+  overflow: hidden;
+  width: 350px;
+  border: 4px solid
+}
+
+.thumbnail{
+  background-color:yellowgreen ;
+  top:0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+#avtar {
+  bottom: 0px;
+  text-align: center;
+  position: absolute;
+  background-color: #1c3abe17;
+  color: white;
+  border-radius: 0 10px 5px 0px;
+  padding: 5px;
+}
+
+#avtar > span {
+  padding-left: 2px;
+  /* color: green; */
+}
+
+#video-grid video i* {
+  /* color: white; */
+  background-color: rgb(156, 0, 0);
+  z-index: 2;
+}
+
+.main__header {
+  color: whitesmoke;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.user-thumbnail{
+  background-color: rgb(83, 149, 211) ;
+  height: 100%;
+  width: 80%;
+  text-align:center; 
+  display:table;
+  border-radius: 50%;
+}
+.name-user{
+  display:table-cell; 
+  vertical-align:middle
+}
+
+#screen-sharing{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  opacity: 1;
+}
+
+/* start notification */
+
+#notification {
+  display: none ;
+  margin: auto;
+  /* border: 1px solid #888; */
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  -webkit-animation-name: animateNotif;
+  -webkit-animation-duration: .5s;
+  animation-name: animateNotif;
+  animation-duration: .5s;
+  padding: 25px;
+  position: absolute;
+  bottom: 13%;
+  left: 50px;
+  background: whitesmoke;
+  border-radius: 10px;
+  padding: 15px;
+  
+}
+
+#notification h4{
+  font-size: 15px;
+}
+
+#notification h4 span{
+  font-weight: bold;
+}
+
+/* Add Animation */
+@-webkit-keyframes animateNotif {
+  from { bottom: 0;  opacity: 0; }
+  to {  bottom: 13%;  opacity: 1; }
+}
+
+@keyframes animateNotif {
+  from { bottom: 0;  opacity: 0;}
+  to {  bottom: 13%;  opacity: 1; }
+}
+
+/* @keyframes animateHide {
+  from{  bottom: 15%;  opacity: 1; }
+  to { bottom: 0;  opacity: 0;}
+} */
+
+/* end notification */
+
+#video {
+  border: 1px solid #999;
+  width: 100%;
+  height: 100%;
+  /* max-width: 860px; */
+  /* background-color: red; */
+}
+
+/* .error {
+  color: red;
+}
+
+.warn {
+  color: orange;
+}
+
+.info {
+  color: darkgreen;
+} */

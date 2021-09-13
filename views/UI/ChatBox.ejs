@@ -1,0 +1,43 @@
+<link rel="stylesheet" href="css/UI/ChatBox.css" />
+<script src="/js/ChatBox.js" defer></script>
+<div class="main__right screen-hide">
+  <div class="main__right__render screen-hide" id="chat-screen">
+    <hr>
+    <div class="main__header">
+      <h4>Chat Box</h4>
+    </div>
+    <div class="main__chat__box">
+      <ul id="messages">
+       
+      </ul>
+    </div>
+    <form class="main__message__container">
+      <div class="msg-box">
+        <textarea id="chat-message" cols="20" rows="1" placeholder="Type a message here"></textarea>
+        <div class="main__message__send" id="send-btn" onclick="sendMsg()">
+          <i class="fas fa-paper-plane " id="icon-send" ></i>
+        </div>
+      </div>
+      <!-- <div class="media-send">
+        <div class="media-item">
+          <input  type="file" id="file">
+          <i class="fas fa-paper-plane " id="icon-send" ></i>
+        </div>
+        <div class="media-item">
+          <i class="fas fa-paper-plane " id="icon-send" ></i>
+        </div>
+        <div class="media-item">
+          <i class="fas fa-paper-plane " id="icon-send" ></i>
+        </div>
+      </div> -->
+    </form>
+  </div>
+  <div class="main__right__render screen-hide" id="users-screen">
+    <div class="main__header">
+      <h4>Participants</h4>
+    </div>
+    <div class="main__users__box">
+      <ul id="users"></ul>
+    </div>
+  </div>
+</div>
