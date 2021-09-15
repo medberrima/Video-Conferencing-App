@@ -39,21 +39,22 @@
   background-color: #f0f0f0;
   border-radius: 5px;
 }
-
 .main__controls__button > i {
   font-size: 20px;
   margin-bottom: 5px;
 }
+.share-btn img ,
+.record-btn img {
+  margin-top: -8px;
+  height: 30px; 
+}
 
-.record-btn img,
+/* .record-btn img,
 .share-btn img{
   margin-bottom: 1px;
   margin-top: -5px;
-  height: 30px;
-}
-.red{
-  color:#eb534b ;
-}
+  height: 30px; */
+/* } */
 
 .mid-block {
   flex: 1;
@@ -75,3 +76,45 @@
 }
 
 /* end controls  */
+
+
+#downloadBox{
+  display: none ;
+  margin: auto;
+  /* border: 1px solid #888; */
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  -webkit-animation-name: animateNotif;
+  -webkit-animation-duration: .5s;
+  animation-name: animateNotif;
+  animation-duration: .5s;
+  padding: 20px 25px ;
+  position: absolute;
+  bottom: 13%;
+  left: 50px;
+  background-color:whitesmoke;
+  border-radius: 5px;
+  color: #3f3f3f;
+}
+
+#downloadLink{
+  color: #000;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+#downloadLink:hover{
+  color: #0163a9;
+}
+
+#downloadClose i{
+  position: absolute;
+  padding: 5px 5px 0px 5px;
+  top: 0px;
+  right:0px;
+  font-size: 17px;
+}
+
+#downloadClose:hover{
+  cursor: pointer;
+  color:#00497e
+}

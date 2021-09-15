@@ -1,6 +1,16 @@
 
 <link rel="stylesheet" href="css/UI/RoomFooter.css" />
 
+<div id="downloadBox" >
+  <div id="downloadClose" onclick="removeBox()">
+    <i class="fas fa-times"></i>
+  </div>
+  <a id="downloadLink" download="mediarecorder.webm" name="mediarecorder.webm" href>
+      Download video file
+      <i class="ml-2 fa fa-download icon-download" aria-hidden="true"></i> 
+  </a>
+</div>
+
 <div class="main__controls">
   <div class="main__controls__block">
     <div class="main__controls__button mute-btn" onclick="muteUnmute()">
@@ -21,10 +31,14 @@
       <img src="img/start-share.svg" alt="start-share" /> 
       <span>Share Screen</span>
     </div>
-    <div class="main__controls__button record-btn " id="recordBtn">
-      <img src="img/start-recording.svg" alt="start-recording" id="RecordImg" /> 
-      <span>Record</span>
-      <a id="downloadLink" download="mediarecorder.webm" name="mediarecorder.webm" href></a>
+    <!-- id="recordBtn" -->
+    <div class="main__controls__button record-btn "  id="startRecord" onclick="startRecord()">
+      <img src="img/start-recording.svg" alt="start-recording"  /> 
+      <span>Start record</span>
+    </div>
+    <div class="main__controls__button record-btn"  id="stopRecord" onclick="StopRecord()">
+      <img src="img/stop-recording.svg" alt="stop-recording"  /> 
+      <span>Stop Record </span>
     </div>
     <div class="main__controls__button chat-btn" id="chats" onclick="handleScreen(this)">
       <i class="fas fa-comment-alt"></i>

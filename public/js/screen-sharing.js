@@ -87,7 +87,7 @@ async function stopShare(err){
   const tracks = stream.getTracks();
   tracks.forEach(function(track) {
     track.stop();
-  });
+  }); 
   videoElem.srcObject = null;
   videoElem.style.display="none"
   document.querySelector('.share-btn ').innerHTML = `<img src="img/start-share.svg" alt="start-share" /> <span>start Share</span> `;

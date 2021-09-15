@@ -169,22 +169,3 @@ main {
 
 /* end notification */
 
-#video {
-  border: 1px solid #999;
-  width: 100%;
-  height: 100%;
-  /* max-width: 860px; */
-  /* background-color: red; */
-}
-
-/* .error {
-  color: red;
-}
-
-.warn {
-  color: orange;
-}
-
-.info {
-  color: darkgreen;
-} */

@@ -64,7 +64,7 @@ socket.on('user-disconnected', userId => {
 })
 
 peer.on('open', id => {
-  console.log(`user ${id} join to room from peer`);
+  console.log(`peer: user join to room ${id} `);
   socket.emit('join-room', ROOM_ID, id);
   myID = id;
 })
