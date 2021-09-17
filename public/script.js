@@ -26,6 +26,7 @@ navigator.mediaDevices.getUserMedia({
   peer.on('call', call => {
     call.answer(stream)
     const video = document.createElement('video')
+
     call.on('stream', userVideoStream => {
       addVideoStream(video, userVideoStream)
     })
@@ -58,8 +59,6 @@ const leaveUserNotif=(userId)=>{
   }, 3000);
 }
 
-
-
 socket.on('user-disconnected', userId => {
   if (peers[userId]) peers[userId].close();
   leaveUserNotif(userId)
@@ -74,29 +73,24 @@ peer.on('open', id => {
 
 const connectToNewUser = (userId, stream) => {
   const call = peer.call(userId, stream)
+  const video = document.createElement('video')
   call.on('stream', userVideoStream => {
-    const video = document.createElement('video')
-    const videoElement =document.createElement('div');
-    videoElement.classList.add("video__element");
-    
-    addVideoStream(video, userVideoStream,videoElement)
+    addVideoStream(video, userVideoStream)
   })
   peers[userId] = call;
 }
 
-const addVideoStream = (video, stream, videoElement) => {
+
+const addVideoStream = (video, stream) => {
   video.srcObject = stream;
-  // var avDiv=document.createElement('div');
-  // avDiv.id="avtar";
-  // avDiv.innerHTML=`ID : <span> ${myID.substr(0, 6)} ( You ) <span>`;
-  // document.querySelector('.video__element').appendChild(avDiv);
+  var videoElement =document.createElement('div');
+  videoElement.classList.add("video__element");
+  videoElement.appendChild(video);
   video.addEventListener('loadedmetadata', () => {
-    videoElement.appendChild(video);
     video.play();
   })
   videoGrid.append(videoElement);
 }
-
 
 //show-hide  main__left
 const isHidden = (screen) => screen.classList.contains("screen-hide");
@@ -187,15 +181,19 @@ socket.on("participants", (users) => {
 
 
 
-// let enabled = myVideoStream.getVideoTracks()[0].enabled;
-// if(enabled){
 
-//   th = document.createElement('div');
-//   th.classList.add('thumbnail');
-//   const html = `<div class="thumbnail"><h1>${userId.substr(0, 6)}</h1>  </div>`
-//   th.innerHTML = html;
-//   document.querySelector(".video__element").appendChild(th);
-// }  else {
-//   document.querySelector(".video__element").removeChild(th);
-//   addVideoStream(myVideo, stream)
-// }
+
+
+// const videoElement =document.createElement('div');
+// videoElement.classList.add("video__element");
+// const videoElement =document.createElement('div');
+// videoElement.style.width="200px";
+// videoElement.style.height="200px";
+// videoElement.style.margin="15px";
+// videoElement.style.backgroundColor="red";
+// videoElement.appendChild(video);
+// var avDiv=document.createElement('div');
+// avDiv.id="avtar";
+// avDiv.innerHTML=`ID : <span> ${myID.substr(0, 6)} ( You ) <span>`;
+// videoElement.classList.add("video__element");
+// videoElement.append(video);
