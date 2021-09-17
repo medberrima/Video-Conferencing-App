@@ -20,12 +20,12 @@ app.get('/', (req, res) => {
   res.render('Home')
 });
 
-app.get('/room', (req, res) => {
+app.get('/Room', (req, res) => {
   res.redirect(`/${shortid.generate()}`);
 });
 
-app.get('/:room', (req, res) => {
-  return res.render('room', {
+app.get('/:Room', (req, res) => {
+  return res.render('Room', {
     roomId: req.params.room
   });
 });
