@@ -6,10 +6,9 @@ myVideo.muted = true;
 console.log("salem") ;
 
 var peer = new Peer(undefined, {
-  host: "med-zoom.herokuapp.com",
   path: '/peerjs',
-  port: 443,
-  secure: true,
+  host: '/',
+  port: '443'
 });
 
 const users = {};
