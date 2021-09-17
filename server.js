@@ -16,7 +16,7 @@ app.set('view engine', 'ejs')
 app.use(express.static(__dirname + '/public'));
 
 
-app.get('/', (req, res) => {
+app.get('/med', (req, res) => {
   res.render('Home')
 });
 
@@ -24,9 +24,6 @@ app.get('/nn', (req, res) => {
   res.render('NotFound')
 });
 
-app.get('/record', (req, res) => {
-  res.render('Record')
-});
 
 app.get('/room', (req, res) => {
   res.redirect(`/${shortid.generate()}`);

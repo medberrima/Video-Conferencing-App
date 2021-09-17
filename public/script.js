@@ -3,6 +3,8 @@ const videoGrid = document.getElementById('video-grid');
 const myVideo = document.createElement('video');
 myVideo.muted = true;
 
+console.log("salem") ;
+
 var peer = new Peer(undefined, {
   host: "med-zoom.herokuapp.com",
   port: 443,
