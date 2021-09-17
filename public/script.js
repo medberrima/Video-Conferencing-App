@@ -5,16 +5,17 @@ myVideo.muted = true;
 
 console.log("salem") ;
 
-var peer = new Peer(undefined, {
+const peer = new Peer(undefined, {
   path: '/peerjs',
   host: '/',
   port: '443'
 });
 
+let myVideoStream;
 const users = {};
 var myID = "";
+const peers = {}
 
-let myVideoStream;
 navigator.mediaDevices.getUserMedia({
   video: true,
   audio: true
@@ -58,7 +59,7 @@ const leaveUserNotif=(userId)=>{
 }
 
 
-var peers = {}
+
 socket.on('user-disconnected', userId => {
   if (peers[userId]) peers[userId].close();
   leaveUserNotif(userId)
@@ -73,26 +74,27 @@ peer.on('open', id => {
 
 const connectToNewUser = (userId, stream) => {
   const call = peer.call(userId, stream)
-  const video = document.createElement('video')
   call.on('stream', userVideoStream => {
-    addVideoStream(video, userVideoStream)
+    const video = document.createElement('video')
+    const videoElement =document.createElement('div');
+    videoElement.classList.add("video__element");
+    
+    addVideoStream(video, userVideoStream,videoElement)
   })
   peers[userId] = call;
 }
 
-const addVideoStream = (video, stream) => {
-  const div =document.createElement('div');
-  div.classList.add("video__element");
+const addVideoStream = (video, stream, videoElement) => {
   video.srcObject = stream;
-  div.appendChild(video);
-  var avDiv=document.createElement('div');
-  avDiv.id="avtar";
-  avDiv.innerHTML=`ID : <span> ${myID.substr(0, 6)} ( You ) <span>`;
+  // var avDiv=document.createElement('div');
+  // avDiv.id="avtar";
+  // avDiv.innerHTML=`ID : <span> ${myID.substr(0, 6)} ( You ) <span>`;
+  // document.querySelector('.video__element').appendChild(avDiv);
   video.addEventListener('loadedmetadata', () => {
+    videoElement.appendChild(video);
     video.play();
-    document.querySelector('.video__element').appendChild(avDiv);
   })
-  videoGrid.append(div);
+  videoGrid.append(videoElement);
 }
 
 
