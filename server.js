@@ -32,11 +32,11 @@ app.get('/:Room', (req, res) => {
 
 // Handle 404 
 // app.use(function(req, res, next) {
-//   res.status(404).render("NotFound");
+//   res.status(404).render("NotFound.html");
 // });
 
 app.get('/NotFound', (req, res) => {
-  res.render('NotFound')
+  res.render('NotFound.ejs')
 });
 
 
