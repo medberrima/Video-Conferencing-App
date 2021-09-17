@@ -16,38 +16,27 @@ app.set('view engine', 'ejs')
 app.use(express.static(__dirname + '/public'));
 
 
+// app.get('/', (req, res) => {
+//   res.render('Home')
+// });
+
 app.get('/', (req, res) => {
-  res.render('Home')
-});
-
-app.get('/med', (req, res) => {
-  res.render('Room')
-});
-
-app.get('/nn', (req, res) => {
-  res.render('NotFound')
-});
-
-
-app.get('/room', (req, res) => {
   res.redirect(`/${shortid.generate()}`);
 });
 
 app.get('/:room', (req, res) => {
-  return res.render('room', {
-    roomId: req.params.room
-  });
+  return res.render('room', {roomId: req.params.room});
 });
 
 // Handle 404 
 // app.use(function(req, res, next) {
 //   res.status(404).render("NotFound");
 // });
-app.use(function(req, res, next){
-  res.status(404);
-  res.render("NotFound");
-  return;
-})
+
+app.get('/NotFound', (req, res) => {
+  res.render('NotFound')
+});
+
 
 const users = {};
 io.on('connection', socket => {
@@ -104,6 +93,12 @@ io.on('connection', socket => {
     })
   })
 })
+
+
+app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('NotFound');
+});
 
 
 server.listen(process.env.PORT||3030)
