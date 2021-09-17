@@ -16,8 +16,12 @@ app.set('view engine', 'ejs')
 app.use(express.static(__dirname + '/public'));
 
 
-app.get('/med', (req, res) => {
+app.get('/', (req, res) => {
   res.render('Home')
+});
+
+app.get('/med', (req, res) => {
+  res.render('Room')
 });
 
 app.get('/nn', (req, res) => {
