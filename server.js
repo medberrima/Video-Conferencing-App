@@ -16,16 +16,18 @@ app.set('view engine', 'ejs')
 app.use(express.static(__dirname + '/public'));
 
 
-// app.get('/', (req, res) => {
-//   res.render('Home')
-// });
-
 app.get('/', (req, res) => {
+  res.render('Home')
+});
+
+app.get('/room', (req, res) => {
   res.redirect(`/${shortid.generate()}`);
 });
 
 app.get('/:room', (req, res) => {
-  return res.render('room', {roomId: req.params.room});
+  return res.render('room', {
+    roomId: req.params.room
+  });
 });
 
 // Handle 404 
