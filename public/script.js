@@ -4,7 +4,7 @@ const myVideo = document.createElement('video');
 myVideo.muted = true;
 
 var peer = new Peer(undefined, {
-  host: "peerjs-server.herokuapp.com",
+  host: "med-zoom.herokuapp.com",
   port: 443,
   secure: true,
 });

@@ -5,8 +5,8 @@ const io = require('socket.io')(server)
 const shortid = require('shortid');
 
 //import peer
-const {  ExpressPeerServer} = require('peer');
-const peerServer = ExpressPeerServer(server, {  
+const { ExpressPeerServer } = require('peer');
+const peerServer = ExpressPeerServer(server, {
   debug: true
 });
 
