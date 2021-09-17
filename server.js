@@ -25,13 +25,7 @@ app.get('/Room', (req, res) => {
 });
 
 app.get('/:Room', (req, res) => {
-  if(req.params.room != 'NotFound'){
-    res.render('Room', {
-      roomId: req.params.room
-    });
-  }else{
-    res.render('NotFound')
-  }
+  res.render('Room', {roomId: req.params.room});
 });
 
 // Handle 404 
@@ -39,9 +33,9 @@ app.get('/:Room', (req, res) => {
 //   res.status(404).render("NotFound.html");
 // });
 
-app.get('/NotFound', (req, res) => {
-  res.render('NotFound')
-});
+// app.get('/NotFound', (req, res) => {
+//   res.status(404).render('NotFound.html')
+// });
 
 
 const users = {};
@@ -99,12 +93,6 @@ io.on('connection', socket => {
     })
   })
 })
-
-
-// app.use(function(err, req, res, next) {
-//     res.status(err.status || 500);
-//     res.render('NotFound');
-// });
 
 
 server.listen(process.env.PORT||3030)
