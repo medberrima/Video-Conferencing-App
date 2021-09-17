@@ -10,10 +10,10 @@ const peerServer = ExpressPeerServer(server, {
   debug: true
 });
 
-app.set("view engine", "ejs");
-app.use(express.static('public'));
-
 app.use('/peerjs', peerServer);
+
+app.set('view engine', 'ejs')
+app.use(express.static('public'))
 
 
 app.get('/', (req, res) => {
@@ -62,7 +62,7 @@ io.on('connection', socket => {
       socket.to(roomId).emit('receive-message', message, userId)
     })
 
-    //manage media of participants
+    //start manage media of participants
     io.in(roomId).emit("participants", users[roomId]);
 
     socket.on("mute-mic", () => {

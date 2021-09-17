@@ -1,55 +1,8 @@
-// 'use strict';
-
-// Polyfill in Firefox.
-// See https://blog.mozilla.org/webrtc/getdisplaymedia-now-available-in-adapter-js/
-// if (adapter.browserDetails.browser == 'firefox') {
-//   adapter.browserShim.shimGetDisplayMedia(window, 'screen');
-// }
-
-// function handleSuccess(stream) {
-//   startButton.disabled = true;
-//   const video = document.querySelector('video');
-//   video.srcObject = stream;
-
-  // demonstrates how to detect that the user has stopped
-  // sharing the screen via the browser UI.
-//   stream.getVideoTracks()[0].addEventListener('ended', () => {
-//     errorMsg('The user has ended sharing the screen');
-//     startButton.disabled = false;
-//   });
-// }
-
-// function handleError(error) {
-//   errorMsg(`getDisplayMedia error: ${error.name}`, error);
-// }
-
-// function errorMsg(msg, error) {
-//   const errorElement = document.querySelector('#errorMsg');
-//   errorElement.innerHTML += `<p>${msg}</p>`;
-//   if (typeof error !== 'undefined') {
-//     console.error(error);
-//   }
-// }
-
-// const startButton = document.getElementById('startButton');
-// startButton.addEventListener('click', () => {
-//   navigator.mediaDevices.getDisplayMedia({video: true})
-//       .then(handleSuccess, handleError);
-// });
-
-// if ((navigator.mediaDevices && 'getDisplayMedia' in navigator.mediaDevices)) {
-//   startButton.disabled = false;
-// } else {
-//   errorMsg('getDisplayMedia is not supported');
-// }
-
 
 const shareBtn = document.getElementById('shareBtn');
 const stop = document.getElementById('stop-share');
 const videoElem = document.getElementById("screen-sharing");
 videoElem.style.display="none"
-
-
 
 shareBtn.addEventListener("click", function(e) {  
   if(videoElem.style.display=="none"){

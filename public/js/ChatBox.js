@@ -11,7 +11,7 @@ input.addEventListener("keyup", function(event) {
   }
 });
 
-sendMsg =()=>{
+sendMsg = () =>{
   let msg = document.getElementById('chat-message').value;
   if (msg === ""){  return  } 
   send(msg) ;
@@ -52,8 +52,8 @@ const receive =(message, userId) =>{
 
 
 
-// chats 
-const systemMessage = (userId, join = false) => {
+// joined / leave ser 
+const joinedLeftUser = (userId, join = false) => {
   const date = new Date();
   let hours = date.getHours();
   let minutes = date.getMinutes();

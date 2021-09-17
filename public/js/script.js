@@ -4,9 +4,9 @@ const myVideo = document.createElement('video');
 myVideo.muted = true;
 
 var peer = new Peer(undefined, {
-  path: '/peerjs',
-  host: '/',
-  port: '5000'
+  host: "peerjs-server.herokuapp.com",
+  port: 443,
+  secure: true,
 });
 
 const users = {};
@@ -32,7 +32,7 @@ navigator.mediaDevices.getUserMedia({
     connectToNewUser(userId, stream);
     console.log('user coonected ', userId)
     joinedUserNotif(userId);
-    systemMessage(userId, true);
+    joinedLeftUser(userId, true);
   })
   socket.emit("participants");
 })
@@ -60,7 +60,7 @@ var peers = {}
 socket.on('user-disconnected', userId => {
   if (peers[userId]) peers[userId].close();
   leaveUserNotif(userId)
-  systemMessage(userId);
+  joinedLeftUser(userId);
 })
 
 peer.on('open', id => {
@@ -157,37 +157,7 @@ const handleActive = (buttonClass) => {
 //list participants
 socket.on("participants", (users) => {
   const nbUser=users.length
-  document.getElementById("nb_Participants").innerHTML=nbUser;
-
-  var els = document.getElementsByClassName("video__element");
-  console.log(els.length)
-  for(var i = 0; i < els.length; i++)
-  {
-    console.log(els[i]);
-  }
-  // for( var i = 0; i<children.length; i++){
-  //   console.log("n: " + children[i].classList); 
-  // }
-
-
-
-  // for( var i = 0; i<nbUser; i++){
-      
-  //     console.log(users[i]);
-  // }
-
-  // let nbEl = videoGrid.childElementCount
-  // var menus = document.getElementsByClassName("video__element");
-  // console.log( nbEl)
-  // for (var i=0 ;i< nbEl ;  i++)
-  // {
-  //   console.log(nbEl[i]);
-    // if (menus.length=1){
-    //   menus[i].style.height="300%"
-    // }
-  // }
-
-  
+  document.getElementById("nb_Participants").innerHTML=nbUser; 
   const lists = document.getElementById("users");
   lists.innerHTML = "";
   lists.textContent = "";
