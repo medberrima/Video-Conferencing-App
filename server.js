@@ -20,11 +20,11 @@ app.get('/', (req, res) => {
   res.render('Home')
 });
 
-app.get('/Room', (req, res) => {
+app.get('/room', (req, res) => {
   res.redirect(`/${shortid.generate()}`);
 });
 
-app.get('/:Room', (req, res) => {
+app.get('/:room', (req, res) => {
   return res.render('Room', {
     roomId: req.params.room
   });
@@ -35,7 +35,7 @@ app.get('/:Room', (req, res) => {
 //   res.status(404).render("NotFound");
 // });
 
-app.get('/NotFound', (req, res) => {
+app.get('/notfound', (req, res) => {
   res.render('NotFound')
 });
 
