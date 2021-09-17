@@ -25,9 +25,13 @@ app.get('/Room', (req, res) => {
 });
 
 app.get('/:Room', (req, res) => {
-  return res.render('Room', {
-    roomId: req.params.room
-  });
+  if(req.params.room != 'NotFound'){
+    res.render('Room', {
+      roomId: req.params.room
+    });
+  }else{
+    res.render('NotFound')
+  }
 });
 
 // Handle 404 
@@ -36,7 +40,7 @@ app.get('/:Room', (req, res) => {
 // });
 
 app.get('/NotFound', (req, res) => {
-  res.render('NotFound.ejs')
+  res.render('NotFound')
 });
 
 
