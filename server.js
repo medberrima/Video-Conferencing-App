@@ -41,6 +41,7 @@ app.get('/:Room', (req, res) => {
 const users = {};
 io.on('connection', socket => {
   socket.on('join-room', (roomId, userId) => {
+    console.log(users[roomId]);
     if (users[roomId])
       users[roomId].push({id: userId, video: true, audio: true});
     else
@@ -48,8 +49,15 @@ io.on('connection', socket => {
 
     socket.join(roomId);
     socket.to(roomId).emit("user-connected", userId);
+
+    // messages
     socket.on('send-message', message =>{
       socket.to(roomId).emit('receive-message', message, userId)
+    })
+    
+    //screen sharing
+    socket.on('screen-share', stream => {
+      io.to(roomId).emit('screenShare', stream, userId)
     })
 
     //start manage media of participants

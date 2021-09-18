@@ -1,9 +1,8 @@
 const socket = io('/');
 const videoGrid = document.getElementById('video-grid');
-const myVideo = document.createElement('video');
-myVideo.muted = true;
+const selfVideoBox = document.getElementById('self-video-box')
 
-console.log("salem") ;
+console.log("test script") ;
 
 const peer = new Peer(undefined, {
   path: '/peerjs',
@@ -11,22 +10,29 @@ const peer = new Peer(undefined, {
   port: '443'
 });
 
-let myVideoStream;
 const users = {};
 var myID = "";
-const peers = {}
 
+let myVideoStream;
+const myVideo = document.createElement('video');
+myVideo.muted = true;
+const peers = {}
+// get audio video from user's device
 navigator.mediaDevices.getUserMedia({
   video: true,
   audio: true
 }).then(stream => {
   myVideoStream = stream;
-  addVideoStream(myVideo, stream)
+  // addVideoStream(myVideo, stream)
+  myVideo.srcObject = stream;
+  myVideo.addEventListener("loadedmetadata", () => {
+    myVideo.play();
+  });
+  selfVideoBox.append(myVideo);
 
   peer.on('call', call => {
     call.answer(stream)
     const video = document.createElement('video')
-
     call.on('stream', userVideoStream => {
       addVideoStream(video, userVideoStream)
     })
@@ -60,9 +66,24 @@ const leaveUserNotif=(userId)=>{
 }
 
 socket.on('user-disconnected', userId => {
-  if (peers[userId]) peers[userId].close();
-  leaveUserNotif(userId)
-  joinedLeftUser(userId);
+  if (peers[userId]){
+
+    peers[userId].close();
+    leaveUserNotif(userId)
+    joinedLeftUser(userId);
+
+    //adjusting size of videos in grid
+    let totalUsers = document.getElementsByTagName("video").length;
+    console.log(totalUsers);
+    console.log(videoGrid.getElementsByTagName("video")[index].style.width);
+    // if (totalUsers >=1) {
+    //   for (let index = 0; index < totalUsers; index++) {
+    //     console.log(videoGrid.getElementsByTagName("video")[index].style.width);
+        // videoGrid.getElementsByTagName("video")[index].style.width = 100 / totalUsers + "%";
+        // videoGrid.getElementsByTagName("video")[index].style.height = 100 / totalUsers + "%";
+      // }
+    // }
+  } 
 })
 
 peer.on('open', id => {
@@ -77,19 +98,33 @@ const connectToNewUser = (userId, stream) => {
   call.on('stream', userVideoStream => {
     addVideoStream(video, userVideoStream)
   })
+  call.on('close', () => {
+    video.remove();
+  })
   peers[userId] = call;
 }
 
-
+//append users videos to grid
 const addVideoStream = (video, stream) => {
   video.srcObject = stream;
-  var videoElement =document.createElement('div');
-  videoElement.classList.add("video__element");
-  videoElement.appendChild(video);
+  // var videoElement =document.createElement('div');
+  // videoElement.classList.add("video__element");
+  // videoElement.appendChild(video);
   video.addEventListener('loadedmetadata', () => {
     video.play();
   })
-  videoGrid.append(videoElement);
+  videoGrid.append(video);
+
+  //adjusting size of videos in grid
+  let totalUsers = document.getElementsByTagName("video").length;
+    console.log(totalUsers);
+    console.log(videoGrid.getElementsByTagName("video")[0].style.width);
+  // if (totalUsers >=1) {
+  //   for (let index = 0; index < totalUsers; index++) {
+  //     videoGrid.getElementsByTagName("video")[index].style.width = 100 / totalUsers + "%";
+  //     videoGrid.getElementsByTagName("video")[index].style.height = 100 / totalUsers + "%";
+  //   }
+  // }
 }
 
 //show-hide  main__left
@@ -167,20 +202,36 @@ socket.on("participants", (users) => {
             <div class="user__avatar">${user.id[0].toUpperCase()}</div>
             <span class="user__name">${user.id.substr(0, 6)} ${user.id == myID ? " (You)" : ""}</span>
             <div class="user__media">
-                <i class="fas fa-microphone${user.audio === false ? "-slash" : ""}"></i>
+                <i class="fas fa-microphone-alt${user.audio === false ? "-slash" : ""}"></i>
                 <i class="fas fa-video${user.video === false ? "-slash" : ""}"></i>
             </div>
-        `;
+        `
       
     lists.append(list);
   });
 });
 
 
+const shareBtn = document.getElementById('shareBtn');
+shareBtn.addEventListener("click", function(e) {
+  navigator.mediaDevices.getDisplayMedia(window, 'screen')
+  .then(function(stream) {
+    myScreenStream = stream;
+    socket.emit('screen-share', stream);  
+  })
+  .catch(function(err) { console.log(err.name + ": " + err.message); }); 
+  // always check for errors at the end.
+})
 
 
-
-
+socket.on('screenShare', (stream, userId) => { 
+  const video = document.createElement('video');
+  video.id = 'screen-sharing' ;
+  // video.srcObject = stream;
+  let screenStream=stream;
+  addVideoStream(video, screenStream);
+  console.log(userId+" share screen");
+})
 
 
 
