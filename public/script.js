@@ -47,6 +47,28 @@ navigator.mediaDevices.getUserMedia({
   socket.emit("participants");
 })
 
+//user disconnected
+socket.on('user-disconnected', userId => {
+  if (peers[userId]){
+    console.log("user disconnected!", userId);
+    peers[userId].close();
+    leaveUserNotif(userId);
+    joinedLeftUser(userId);
+  } 
+
+    //adjusting size of videos in grid
+    // let totalUsers = document.getElementsByTagName("video").length;
+    // console.log(totalUsers);
+    // console.log(videoGrid.getElementsByTagName("video")[index].style.width);
+    // if (totalUsers >=1) {
+    //   for (let index = 0; index < totalUsers; index++) {
+    //     console.log(videoGrid.getElementsByTagName("video")[index].style.width);
+        // videoGrid.getElementsByTagName("video")[index].style.width = 100 / totalUsers + "%";
+        // videoGrid.getElementsByTagName("video")[index].style.height = 100 / totalUsers + "%";
+      // }
+    // }
+})
+
 // joined user
 const joinedUserNotif=(userId)=>{
   document.getElementById('notification').style.display="block " ;
@@ -64,27 +86,6 @@ const leaveUserNotif=(userId)=>{
     document.getElementById('notification').style.display="none "
   }, 3000);
 }
-
-socket.on('user-disconnected', userId => {
-  if (peers[userId]){
-
-    peers[userId].close();
-    leaveUserNotif(userId)
-    joinedLeftUser(userId);
-
-    //adjusting size of videos in grid
-    // let totalUsers = document.getElementsByTagName("video").length;
-    // console.log(totalUsers);
-    // console.log(videoGrid.getElementsByTagName("video")[index].style.width);
-    // if (totalUsers >=1) {
-    //   for (let index = 0; index < totalUsers; index++) {
-    //     console.log(videoGrid.getElementsByTagName("video")[index].style.width);
-        // videoGrid.getElementsByTagName("video")[index].style.width = 100 / totalUsers + "%";
-        // videoGrid.getElementsByTagName("video")[index].style.height = 100 / totalUsers + "%";
-      // }
-    // }
-  } 
-})
 
 peer.on('open', id => {
   console.log(`peer: user join to room ${id} `);
