@@ -73,9 +73,9 @@ socket.on('user-disconnected', userId => {
     joinedLeftUser(userId);
 
     //adjusting size of videos in grid
-    let totalUsers = document.getElementsByTagName("video").length;
-    console.log(totalUsers);
-    console.log(videoGrid.getElementsByTagName("video")[index].style.width);
+    // let totalUsers = document.getElementsByTagName("video").length;
+    // console.log(totalUsers);
+    // console.log(videoGrid.getElementsByTagName("video")[index].style.width);
     // if (totalUsers >=1) {
     //   for (let index = 0; index < totalUsers; index++) {
     //     console.log(videoGrid.getElementsByTagName("video")[index].style.width);
@@ -116,9 +116,7 @@ const addVideoStream = (video, stream) => {
   videoGrid.append(video);
 
   //adjusting size of videos in grid
-  let totalUsers = document.getElementsByTagName("video").length;
-    console.log(totalUsers);
-    console.log(videoGrid.getElementsByTagName("video")[0].style.width);
+  // let totalUsers = document.getElementsByTagName("video").length;
   // if (totalUsers >=1) {
   //   for (let index = 0; index < totalUsers; index++) {
   //     videoGrid.getElementsByTagName("video")[index].style.width = 100 / totalUsers + "%";

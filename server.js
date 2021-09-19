@@ -20,12 +20,13 @@ app.get('/', (req, res) => {
   res.render('Home')
 });
 
-app.get('/Room', (req, res) => {
+app.get('/room', (req, res) => {
   res.redirect(`/${shortid.generate()}`);
 });
 
-app.get('/:Room', (req, res) => {
-  res.render('Room', {roomId: req.params.room});
+app.get('/:id', (req, res) => { 
+  const { id } = req.params;
+  res.render('Room', { roomId: id });
 });
 
 // Handle 404 
@@ -41,7 +42,6 @@ app.get('/:Room', (req, res) => {
 const users = {};
 io.on('connection', socket => {
   socket.on('join-room', (roomId, userId) => {
-    console.log(users[roomId]);
     if (users[roomId])
       users[roomId].push({id: userId, video: true, audio: true});
     else
