@@ -13,7 +13,7 @@ document.getElementById('stopRecord').style.display="none";
 
 function startRecord() {
   if (!navigator.mediaDevices.getDisplayMedia) {
-    alert("navigator.mediaDevices.getDisplayMedia not supported on your browser, use the latest version of Chrome" );
+    alert("not supported on your browser, use the latest version of Chrome" );
   } else {
     if (window.MediaRecorder == undefined) {
       alert("MediaRecorder not supported on your browser, use the latest version of Firefox or Chrome"

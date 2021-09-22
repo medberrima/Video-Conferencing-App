@@ -7,7 +7,7 @@ console.log("test script") ;
 const peer = new Peer(undefined, {
   path: '/peerjs',
   host: '/',
-  port: '443'
+  port: '3030'
 });
 
 const users = {};
@@ -44,30 +44,34 @@ navigator.mediaDevices.getUserMedia({
     joinedUserNotif(userId);
     joinedLeftUser(userId, true);
   })
+
+
+  
   socket.emit("participants");
-})
-
-//user disconnected
-socket.on('user-disconnected', userId => {
-  if (peers[userId]){
-    console.log("user disconnected!", userId);
-    peers[userId].close();
-    leaveUserNotif(userId);
-    joinedLeftUser(userId);
-  } 
-
-    //adjusting size of videos in grid
-    // let totalUsers = document.getElementsByTagName("video").length;
-    // console.log(totalUsers);
-    // console.log(videoGrid.getElementsByTagName("video")[index].style.width);
-    // if (totalUsers >=1) {
-    //   for (let index = 0; index < totalUsers; index++) {
-    //     console.log(videoGrid.getElementsByTagName("video")[index].style.width);
-        // videoGrid.getElementsByTagName("video")[index].style.width = 100 / totalUsers + "%";
-        // videoGrid.getElementsByTagName("video")[index].style.height = 100 / totalUsers + "%";
+  //user disconnected
+  socket.on('user-disconnected', userId => {
+    if (peers[userId]){
+      console.log("user disconnected!", userId);
+      peers[userId].close();
+      leaveUserNotif(userId);
+      joinedLeftUser(userId);
+    } 
+  
+      //adjusting size of videos in grid
+      // let totalUsers = document.getElementsByTagName("video").length;
+      // console.log(totalUsers);
+      // console.log(videoGrid.getElementsByTagName("video")[index].style.width);
+      // if (totalUsers >=1) {
+      //   for (let index = 0; index < totalUsers; index++) {
+      //     console.log(videoGrid.getElementsByTagName("video")[index].style.width);
+          // videoGrid.getElementsByTagName("video")[index].style.width = 100 / totalUsers + "%";
+          // videoGrid.getElementsByTagName("video")[index].style.height = 100 / totalUsers + "%";
+        // }
       // }
-    // }
+  })
 })
+
+
 
 // joined user
 const joinedUserNotif=(userId)=>{
@@ -171,10 +175,12 @@ const handleScreen = (screen) => {
     right_container.classList.remove("screen-hide");
     left_container.classList.remove("screen-full");
     document.querySelector(".main__controls").style.width = '80%'
+    document.getElementById('self-video-box').style.right='25%';
   } else if (activeSreen === "") {
     right_container.classList.add("screen-hide");
     left_container.classList.add("screen-full");
-    document.querySelector(".main__controls").style.width = '100%'
+    document.querySelector(".main__controls").style.width = '100%';
+    document.getElementById('self-video-box').style.right='8%';
   }
 };
 
@@ -211,26 +217,6 @@ socket.on("participants", (users) => {
 });
 
 
-const shareBtn = document.getElementById('shareBtn');
-shareBtn.addEventListener("click", function(e) {
-  navigator.mediaDevices.getDisplayMedia(window, 'screen')
-  .then(function(stream) {
-    myScreenStream = stream;
-    socket.emit('screen-share', stream);  
-  })
-  .catch(function(err) { console.log(err.name + ": " + err.message); }); 
-  // always check for errors at the end.
-})
-
-
-socket.on('screenShare', (stream, userId) => { 
-  const video = document.createElement('video');
-  video.id = 'screen-sharing' ;
-  // video.srcObject = stream;
-  let screenStream=stream;
-  addVideoStream(video, screenStream);
-  console.log(userId+" share screen");
-})
 
 
 
@@ -246,4 +232,4 @@ socket.on('screenShare', (stream, userId) => {
 // avDiv.id="avtar";
 // avDiv.innerHTML=`ID : <span> ${myID.substr(0, 6)} ( You ) <span>`;
 // videoElement.classList.add("video__element");
-// videoElement.append(video);
+// videoElement.append(video)

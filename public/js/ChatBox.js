@@ -1,11 +1,11 @@
 let input = document.getElementById("chat-message");
 
-input.addEventListener("keyup", function(event) {
+input.addEventListener("keyup", function(e) {
   // Number 13 is the "Enter" key on the keyboard
-  if (event.which == '13' && event.target.tagName != 'TEXTAREA') {
-    event.preventDefault();
+  if (e.key === "Enter" && e.target.tagName != 'TEXTAREA') {
+    e.preventDefault();
   }
-  if (event.keyCode === 13 ) {
+  if (e.keyCode === 13 ) {
     // Trigger the button element with a click
     document.getElementById("send-btn").click();
   }
@@ -74,3 +74,5 @@ const joinedLeftUser = (userId, join = false) => {
 };
 
 //send fles
+
+

@@ -55,10 +55,11 @@ io.on('connection', socket => {
       socket.to(roomId).emit('receive-message', message, userId)
     })
     
-    //screen sharing
-    socket.on('screen-share', stream => {
-      io.to(roomId).emit('screenShare', stream, userId)
+    // screen sharing
+    socket.on('screen-share', (screenStream) => {
+      io.to(roomId).emit('screenShare', userId,screenStream)
     })
+    
 
     //start manage media of participants
     io.in(roomId).emit("participants", users[roomId]);
@@ -98,6 +99,7 @@ io.on('connection', socket => {
       users[roomId] = users[roomId].filter((user) => user.id !== userId);
             if (users[roomId].length === 0) delete users[roomId];
             else io.in(roomId).emit("participants", users[roomId]);
+      // videoGrid.remove(stream)
     })
   })
 })
