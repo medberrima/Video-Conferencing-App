@@ -87,8 +87,8 @@ main {
   position: fixed;
   bottom: 85px;
   right: 8%;
-  height: 150px;
-  width: 150px;
+  height: 200px;
+  width: 200px;
   border-radius: 1rem;
   object-fit:cover;
 
