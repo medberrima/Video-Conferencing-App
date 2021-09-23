@@ -18,7 +18,7 @@ const myVideo = document.createElement('video');
 myVideo.muted = true;
 const peers = {}
 // get audio video from user's device
-navigator.mediaDevices.getDisplayMedia({
+navigator.mediaDevices.getUserMedia({
   video: true,
   audio: true
 }).then(stream => {
@@ -214,46 +214,27 @@ socket.on("participants", (users) => {
   });
 });
 
+shareScreen = () =>{  
+  let myScreenStream;
+  const screenPreview = document.createElement('video');
+  screenPreview.id="screen-preview";
+  var constraints = {video: {cursor: "always"},  audio: false  };
+  navigator.mediaDevices.getDisplayMedia(constraints)
+  .then(stream => {
+    myScreenStream = stream;
+    screenPreview.srcObject = stream;
+    screenPreview.addEventListener("loadedmetadata", () => {
+      screenPreview.play();
+    });
+    document.getElementById('main__videos').append(screenPreview);
 
-// const shareScreen = () =>{  
-//   const screenPreview = document.createElement('video')
-//   const constr = {video: {mediaSource: "screen"},  audio: false  };
-//   navigator.mediaDevices.getDisplayMedia(constr)
-//   .then(stream => {
-//     addScreenStream(screenPreview, stream)
-//     socket.emit('screen-share',(stream) );
-//   })
-// }
-
-// const addScreenStream = (video, stream) =>{
-//   video.srcObject = stream;
-//   video.id = 'screen-preview'
-//   video.addEventListener('loadedmetadata', () => {
-//     video.play();
-//   })
-//   document.getElementById("main__videos").append(video);
-// }
-
-// socket.on("screenShare", (userId,stream) => {
-//   console.log(userId);
-//   const screenPreview = document.createElement('video');
-//   addScreenStream(screenPreview, stream);
-// });
-
-
-
-
-
-// const videoElement =document.createElement('div');
-// videoElement.classList.add("video__element");
-// const videoElement =document.createElement('div');
-// videoElement.style.width="200px";
-// videoElement.style.height="200px";
-// videoElement.style.margin="15px";
-// videoElement.style.backgroundColor="red";
-// videoElement.appendChild(video);
-// var avDiv=document.createElement('div');
-// avDiv.id="avtar";
-// avDiv.innerHTML=`ID : <span> ${myID.substr(0, 6)} ( You ) <span>`;
-// videoElement.classList.add("video__element");
-// videoElement.append(video)
+    peer.on('call', call => {
+      call.answer(stream)
+      const screenPreview = document.createElement('video');
+      screenPreview.id="screen-preview";
+      call.on('stream', userScreenStream => {
+        addVideoStream(screenPreview, userScreenStream)
+      })
+    })
+  });
+}
