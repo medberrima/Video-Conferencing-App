@@ -7,7 +7,7 @@ console.log("test script") ;
 const peer = new Peer(undefined, {
   path: '/peerjs',
   host: '/',
-  port: '443'
+  port: '3030'
 });
 
 const users = {};
@@ -18,12 +18,11 @@ const myVideo = document.createElement('video');
 myVideo.muted = true;
 const peers = {}
 // get audio video from user's device
-navigator.mediaDevices.getUserMedia({
+navigator.mediaDevices.getDisplayMedia({
   video: true,
   audio: true
 }).then(stream => {
   myVideoStream = stream;
-  // addVideoStream(myVideo, stream)
   myVideo.srcObject = stream;
   myVideo.addEventListener("loadedmetadata", () => {
     myVideo.play();
@@ -44,8 +43,6 @@ navigator.mediaDevices.getUserMedia({
     joinedUserNotif(userId);
     joinedLeftUser(userId, true);
   })
-
-
   
   socket.emit("participants");
   //user disconnected
@@ -55,6 +52,7 @@ navigator.mediaDevices.getUserMedia({
       peers[userId].close();
       leaveUserNotif(userId);
       joinedLeftUser(userId);
+      
     } 
   
       //adjusting size of videos in grid
@@ -215,6 +213,32 @@ socket.on("participants", (users) => {
     lists.append(list);
   });
 });
+
+
+// const shareScreen = () =>{  
+//   const screenPreview = document.createElement('video')
+//   const constr = {video: {mediaSource: "screen"},  audio: false  };
+//   navigator.mediaDevices.getDisplayMedia(constr)
+//   .then(stream => {
+//     addScreenStream(screenPreview, stream)
+//     socket.emit('screen-share',(stream) );
+//   })
+// }
+
+// const addScreenStream = (video, stream) =>{
+//   video.srcObject = stream;
+//   video.id = 'screen-preview'
+//   video.addEventListener('loadedmetadata', () => {
+//     video.play();
+//   })
+//   document.getElementById("main__videos").append(video);
+// }
+
+// socket.on("screenShare", (userId,stream) => {
+//   console.log(userId);
+//   const screenPreview = document.createElement('video');
+//   addScreenStream(screenPreview, stream);
+// });
 
 
 
