@@ -1,43 +1,30 @@
 let input = document.getElementById("chat-message");
 
-input.addEventListener("keyup", function(e) {
-  // Number 13 is the "Enter" key on the keyboard
-  if (e.key === "Enter" && e.target.tagName != 'TEXTAREA') {
-    e.preventDefault();
-  }
-  if (e.keyCode === 13 ) {
-    // Trigger the button element with a click
-    document.getElementById("send-btn").click();
+input.addEventListener("keyup", function(event) {
+  event.preventDefault();
+  if (event.keyCode === 13) {
+    sendMsg()
+    input.value ="" ;
   }
 });
 
 sendMsg = () =>{
-  let msg = document.getElementById('chat-message').value;
-  if (msg === ""){  return  } 
-  send(msg) ;
-  socket.emit('send-message', msg) ;
-  document.getElementById('chat-message').value =''
+  let message = document.getElementById('chat-message').value;
+  if (message.length-1 != ""){  
+    let li =document.createElement("li");
+    li.className ="message-right";
+    li.innerHTML =
+    `<div class="message__content">
+    <div class="message__text">
+    <span>${message}</span>
+    </div>
+    </div>`
+    ul.appendChild(li);
+    socket.emit('send-message', message) ;
+  } 
 }
 
 socket.on('receive-message', (message, userId) =>{
-  receive(message,userId);
-})
-
-let ul =document.getElementById('messages');
-
-const send =(message) =>{
-  let li =document.createElement("li");
-  li.className ="message-right";
-  li.innerHTML =
-  `<div class="message__content">
-    <div class="message__text">
-      <span>${message}</span>
-    </div>
-  </div>`
-  ul.appendChild(li);
-}
-
-const receive =(message, userId) =>{
   let li =document.createElement("li");
   li.className ="message-left";
   li.innerHTML =`<div class="message__avatar">${userId.substr(0,1)}</div>
@@ -48,7 +35,9 @@ const receive =(message, userId) =>{
     </div>
   </div>`
   ul.appendChild(li);
-}
+})
+
+let ul =document.getElementById('messages');
 
 
 
@@ -73,6 +62,6 @@ const joinedLeftUser = (userId, join = false) => {
   // container.scrollTop = container.scrollHeight;
 };
 
-//send fles
+//send files
 
 

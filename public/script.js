@@ -17,6 +17,7 @@ let myVideoStream;
 const myVideo = document.createElement('video');
 myVideo.muted = true;
 const peers = {}
+
 // get audio video from user's device
 navigator.mediaDevices.getUserMedia({
   video: true,
@@ -45,6 +46,7 @@ navigator.mediaDevices.getUserMedia({
   })
   
   socket.emit("participants");
+
   //user disconnected
   socket.on('user-disconnected', userId => {
     if (peers[userId]){
@@ -68,7 +70,6 @@ navigator.mediaDevices.getUserMedia({
       // }
   })
 })
-
 
 
 // joined user
@@ -103,6 +104,7 @@ const connectToNewUser = (userId, stream) => {
   })
   call.on('close', () => {
     video.remove();
+    videoGrid.remove(video);
   })
   peers[userId] = call;
 }
@@ -213,28 +215,3 @@ socket.on("participants", (users) => {
     lists.append(list);
   });
 });
-
-shareScreen = () =>{  
-  let myScreenStream;
-  const screenPreview = document.createElement('video');
-  screenPreview.id="screen-preview";
-  var constraints = {video: {cursor: "always"},  audio: false  };
-  navigator.mediaDevices.getDisplayMedia(constraints)
-  .then(stream => {
-    myScreenStream = stream;
-    screenPreview.srcObject = stream;
-    screenPreview.addEventListener("loadedmetadata", () => {
-      screenPreview.play();
-    });
-    document.getElementById('main__videos').append(screenPreview);
-
-    peer.on('call', call => {
-      call.answer(stream)
-      const screenPreview = document.createElement('video');
-      screenPreview.id="screen-preview";
-      call.on('stream', userScreenStream => {
-        addVideoStream(screenPreview, userScreenStream)
-      })
-    })
-  });
-}
