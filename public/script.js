@@ -19,7 +19,7 @@ const myVideo = document.createElement('video');
 
 myVideo.muted = true;
 const peers = {}
-console.log(typeof(peers))
+
 // get audio video from user's device
 navigator.mediaDevices.getUserMedia({
   video: true,
@@ -27,6 +27,7 @@ navigator.mediaDevices.getUserMedia({
 }).then(stream => {
   myVideoStream = stream;
   myVideo.srcObject = stream;
+
   myVideo.addEventListener("loadedmetadata", () => {
     myVideo.play();
   });
@@ -90,10 +91,11 @@ peer.on('open', id => {
 const connectToNewUser = (userId, stream) => {
   const call = peer.call(userId, stream)
   const video = document.createElement('video')
+  console.log(userId);
   video.id = userId;
-  console.log(video.id)
   call.on('stream', userVideoStream => {
     addVideoStream(video, userVideoStream)
+    video.id = userId;
   })
   call.on('close', () => {
     video.remove();
@@ -105,14 +107,14 @@ const connectToNewUser = (userId, stream) => {
 //append users videos to grid
 const addVideoStream = (video, stream) => {
   video.srcObject = stream;
-  // var videoElement =document.createElement('div');
-  // videoElement.classList.add("video__element");
-  // videoElement.appendChild(video);
   video.addEventListener('loadedmetadata', () => {
     video.play();
   })
   videoGrid.append(video);
-
+  // var videoElement =document.createElement('div');
+  // videoElement.classList.add("video__element");
+  // videoElement.appendChild(video);
+  
   //adjusting size of videos in grid
   // let totalUsers = document.getElementsByTagName("video").length;
   // if (totalUsers >=1) {
@@ -124,6 +126,7 @@ const addVideoStream = (video, stream) => {
 }
 
 removeVideoElement = (id) =>{
+  console.log(id);
   const element = document.getElementById(id)
   element.remove()
 }
