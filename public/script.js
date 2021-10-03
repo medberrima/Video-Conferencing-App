@@ -16,6 +16,7 @@ var myID = "";
 
 let myVideoStream;
 const myVideo = document.createElement('video');
+
 myVideo.muted = true;
 const peers = {}
 
@@ -34,6 +35,8 @@ navigator.mediaDevices.getUserMedia({
   peer.on('call', call => {
     call.answer(stream)
     const video = document.createElement('video')
+    video.id = userId;
+    console.log(video.id)
     call.on('stream', userVideoStream => {
       addVideoStream(video, userVideoStream)
     })
@@ -52,11 +55,12 @@ navigator.mediaDevices.getUserMedia({
   socket.on('user-disconnected', userId => {
     if (peers[userId]){
       console.log("user disconnected!", userId);
-      peers[userId].close();
+      this.peers.get(userId).call.close();
+      this.peers.delete(userId);
       joinedLeftNotif(userId);
       joinedLeftMsg(userId);
     } 
-  
+    removeVideoElement(userId);
       //adjusting size of videos in grid
       // let totalUsers = document.getElementsByTagName("video").length;
       // console.log(totalUsers);
@@ -89,6 +93,8 @@ peer.on('open', id => {
 const connectToNewUser = (userId, stream) => {
   const call = peer.call(userId, stream)
   const video = document.createElement('video')
+  video.id = userId;
+  console.log(video.id)
   call.on('stream', userVideoStream => {
     addVideoStream(video, userVideoStream)
   })
@@ -118,6 +124,11 @@ const addVideoStream = (video, stream) => {
   //     videoGrid.getElementsByTagName("video")[index].style.height = 100 / totalUsers + "%";
   //   }
   // }
+}
+
+removeVideoElement = (id) =>{
+  const element = document.getElementById(id)
+  element.remove()
 }
 
 //show-hide  main__left
