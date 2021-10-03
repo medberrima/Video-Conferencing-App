@@ -19,7 +19,7 @@ const myVideo = document.createElement('video');
 
 myVideo.muted = true;
 const peers = {}
-
+console.log(typeof(peers))
 // get audio video from user's device
 navigator.mediaDevices.getUserMedia({
   video: true,
@@ -55,8 +55,7 @@ navigator.mediaDevices.getUserMedia({
   socket.on('user-disconnected', userId => {
     if (peers[userId]){
       console.log("user disconnected!", userId);
-      this.peers.get(userId).call.close();
-      this.peers.delete(userId);
+      peers[userId].close();
       joinedLeftNotif(userId);
       joinedLeftMsg(userId);
     } 
