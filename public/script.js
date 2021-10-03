@@ -55,7 +55,6 @@ navigator.mediaDevices.getUserMedia({
       peers[userId].close();
       leaveUserNotif(userId);
       joinedLeftUser(userId);
-      
     } 
   
       //adjusting size of videos in grid
@@ -71,7 +70,6 @@ navigator.mediaDevices.getUserMedia({
       // }
   })
 })
-
 
 // joined user
 const joinedUserNotif=(userId)=>{
@@ -263,3 +261,5 @@ socket.on("participants", (users) => {
 //   })
 //   mainVideos.append(Preview);
 // }
+
+
