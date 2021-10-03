@@ -55,6 +55,12 @@ io.on('connection', socket => {
       socket.to(roomId).emit('receive-message', message, userId)
     })
 
+    //share screen
+    socket.on('share-screen', stream=> {
+      //send screen to the same room
+      io.to(roomId).emit('shareScreen',stream, userId)
+    }); 
+
     //start manage media of participants
     io.in(roomId).emit("participants", users[roomId]);
 

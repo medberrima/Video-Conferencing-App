@@ -1,6 +1,7 @@
 const socket = io('/');
 const videoGrid = document.getElementById('video-grid');
 const selfVideoBox = document.getElementById('self-video-box')
+const mainVideos = document.getElementById("main__videos");
 
 console.log("test script") ;
 
@@ -215,3 +216,50 @@ socket.on("participants", (users) => {
     lists.append(list);
   });
 });
+
+
+
+// const shareBtn = document.getElementById('shareBtn');
+// const screenPreview = document.createElement('video');
+// screenPreview.id = "screenPreview" ;
+
+// shareBtn.addEventListener("click", (e) => {
+//   const constraints = {video: {cursor: "always"},  audio: false  };
+//   navigator.mediaDevices.getDisplayMedia(constraints)
+//   .then(function(stream) {
+//     screenPreview.srcObject = stream ;
+//     screenPreview.addEventListener("loadedmetadata", () => {
+//       screenPreview.play();
+//     });
+//     mainVideos.append(screenPreview);
+
+//     socket.emit('share-screen',stream);    
+//   })
+//   .catch(function(err) { 
+//     console.log(err.name + ": " + err.message); 
+//   }); 
+
+//   //emit through socket when button is clicked
+//   console.log('med')                                           
+// });
+
+
+//listening for shareScreen event
+// socket.on('shareScreen',(stream ,userId) =>{  
+
+//   const Preview = document.createElement('video');
+//   Preview.controls  = true;
+//   addScreenStream(Preview, stream);
+//   console.log(userId.substr(0,6) ,' share screen');
+
+  
+// })
+
+// const addScreenStream = (Preview, stream) => {
+//   Preview.src = stream;
+//   Preview.autoplay= true;
+//   Preview.addEventListener('loadedmetadata', () => {
+//     Preview.play();
+//   })
+//   mainVideos.append(Preview);
+// }
