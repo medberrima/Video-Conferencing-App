@@ -1,6 +1,7 @@
 let input = document.getElementById("chat-message");
+let ul =document.getElementById('messages');
 
-input.addEventListener("keyup", function(event) {
+input.addEventListener("keyup",(event)=> {
   event.preventDefault();
   if (event.keyCode === 13) {
     sendMsg()
@@ -10,7 +11,7 @@ input.addEventListener("keyup", function(event) {
 
 sendMsg = () =>{
   let message = document.getElementById('chat-message').value;
-  if (message.length-1 != ""){  
+  if (message.replace(/\s/g, '').length != 0   ){  
     let li =document.createElement("li");
     li.className ="message-right";
     li.innerHTML =
@@ -37,12 +38,10 @@ socket.on('receive-message', (message, userId) =>{
   ul.appendChild(li);
 })
 
-let ul =document.getElementById('messages');
-
 
 
 // joined / leave ser 
-const joinedLeftUser = (userId, join = false) => {
+const joinedLeftMsg = (userId, join = false) => {
   const date = new Date();
   let hours = date.getHours();
   let minutes = date.getMinutes();
@@ -51,15 +50,12 @@ const joinedLeftUser = (userId, join = false) => {
   hours = hours ? hours : 12;
   minutes = minutes < 10 ? "0" + minutes : minutes;
   
-  let ul = document.getElementById("messages");
   let li = document.createElement("li");
   li.className = "system-message";
   li.innerHTML = `<span>${hours}:${minutes}${format}</span><span>${userId.substr(0,6)} has ${
       join ? "joined" : "left"
   } the meeting</span>`;
   ul.appendChild(li);
-  // lists.append(list);
-  // container.scrollTop = container.scrollHeight;
 };
 
 //send files

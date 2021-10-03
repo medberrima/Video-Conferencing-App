@@ -42,8 +42,8 @@ navigator.mediaDevices.getUserMedia({
   socket.on('user-connected', userId => {
     connectToNewUser(userId, stream);
     console.log('user coonected ', userId)
-    joinedUserNotif(userId);
-    joinedLeftUser(userId, true);
+    joinedLeftNotif(userId, true);
+    joinedLeftMsg(userId, true);
   })
   
   socket.emit("participants");
@@ -53,8 +53,8 @@ navigator.mediaDevices.getUserMedia({
     if (peers[userId]){
       console.log("user disconnected!", userId);
       peers[userId].close();
-      leaveUserNotif(userId);
-      joinedLeftUser(userId);
+      joinedLeftNotif(userId);
+      joinedLeftMsg(userId);
     } 
   
       //adjusting size of videos in grid
@@ -71,19 +71,10 @@ navigator.mediaDevices.getUserMedia({
   })
 })
 
-// joined user
-const joinedUserNotif=(userId)=>{
+// joined / left user
+const joinedLeftNotif=(userId, join = false)=>{
   document.getElementById('notification').style.display="block " ;
-  document.getElementById('notification').innerHTML=`<h4> <span> ${userId.substr(0,6)} </span>  has joined the meeting</h4>`
-  setTimeout( () => {
-    document.getElementById('notification').style.display="none "
-  }, 3000);
-}
-
-// leave user
-const leaveUserNotif=(userId)=>{
-  document.getElementById('notification').style.display="block " ;
-  document.getElementById('notification').innerHTML=`<h4> <span> ${userId.substr(0,6)} </span>  has left the meeting </h4>`
+  document.getElementById('notification').innerHTML=`<h4> <span> ${userId.substr(0,6)} </span>  has ${ join ? "joined" : "left "} the meeting</h4>`
   setTimeout( () => {
     document.getElementById('notification').style.display="none "
   }, 3000);
