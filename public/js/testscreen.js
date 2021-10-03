@@ -1,6 +1,6 @@
 const screenPreview = document.getElementById("screen-preview");
 function shareScreen(){
-  console.log('salem')
+  console.log('test screen')
   const constraints = {video: {cursor: "always"},  audio: false  };
   navigator.mediaDevices.getDisplayMedia(constraints)
   .then(function(stream) {
