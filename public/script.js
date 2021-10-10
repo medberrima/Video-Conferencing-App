@@ -90,13 +90,15 @@ peer.on('open', id => {
 
 const connectToNewUser = (userId, stream) => {
   const call = peer.call(userId, stream)
-  const video = document.createElement('video')
+  const video = document.createElement('vide o')
   console.log(userId);
   video.id = userId;
+  
   call.on('stream', userVideoStream => {
     addVideoStream(video, userVideoStream)
     video.id = userId;
   })
+
   call.on('close', () => {
     video.remove();
     videoGrid.remove(video);
