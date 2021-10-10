@@ -8,13 +8,21 @@ function shareScreen(){
     screenPreview.addEventListener("loadedmetadata", () => {
       screenPreview.play();
     });
-
-    peer.on('stream', function (stream) {  
-      // got remote video stream, now let's show it in a video tag  
-
-      screenPreview.srcObject = stream;  
-      screenPreview.play();  
+    
+    peer.on('call', call => {
+      call.answer(stream)
+      const video = document.createElement('video')
+      call.on('stream', userVideoStream => {
+        addVideoStream(video, userVideoStream)
+      })
     })
+
+    // peer.on('stream', function (stream) {  
+    //   // got remote video stream, now let's show it in a video tag  
+
+    //   screenPreview.srcObject = stream;  
+    //   screenPreview.play();  
+    // })
 
     
   })
