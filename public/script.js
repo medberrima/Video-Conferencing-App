@@ -9,6 +9,7 @@ const peer = new Peer(undefined, {
   path: '/peerjs',
   host: '/',
   port: '443'
+  
 });
 
 const users = {};
@@ -93,7 +94,7 @@ const connectToNewUser = (userId, stream) => {
   const video = document.createElement('vide o')
   console.log(userId);
   video.id = userId;
-  
+
   call.on('stream', userVideoStream => {
     addVideoStream(video, userVideoStream)
     video.id = userId;
