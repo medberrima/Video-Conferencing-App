@@ -90,7 +90,7 @@ peer.on('open', id => {
 
 const connectToNewUser = (userId, stream) => {
   const call = peer.call(userId, stream)
-  const video = document.createElement('vide o')
+  const video = document.createElement('video')
   console.log(userId);
   video.id = userId;
 
