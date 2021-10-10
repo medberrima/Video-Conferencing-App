@@ -9,7 +9,6 @@ const peer = new Peer(undefined, {
   path: '/peerjs',
   host: '/',
   port: '443'
-  
 });
 
 const users = {};
