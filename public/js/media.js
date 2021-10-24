@@ -1,5 +1,4 @@
-
-//audio controls
+// media.js : audio controls
 const muteUnmute = () => {
   const enabled = myVideoStream.getAudioTracks()[0].enabled;
   if (enabled) {
@@ -12,23 +11,18 @@ const muteUnmute = () => {
     myVideoStream.getAudioTracks()[0].enabled = true;
   }
 }
+
 const setMuteButton = () => {
-  const html = `
-    <i class="fas fa-microphone-alt"></i>
-    <span>Mute</span>
-  `
+  const html = `<i class="fas fa-microphone-alt"></i><span>Mute</span>  `
   document.querySelector('.mute-btn').innerHTML = html;
 }
 
 const setUnmuteButton = () => {
-  const html = `
-    <i class="unmute fas fa-microphone-alt-slash"></i> 
-    <span>Unmute</span>
-  `
+  const html = `<i class="unmute fas fa-microphone-alt-slash"></i> <span>Unmute</span>`
   document.querySelector('.mute-btn').innerHTML = html;
 }
 
-//video controls
+//media.js : video controls
 const playStop = () => {
   let enabled = myVideoStream.getVideoTracks()[0].enabled;
   
@@ -36,14 +30,25 @@ const playStop = () => {
     myVideoStream.getVideoTracks()[0].enabled = false;
     socket.emit("stop-video");
     setPlayVideo();
-    // showInfo(myID);
   } else {
     myVideoStream.getVideoTracks()[0].enabled = true;
     socket.emit("play-video");
     setStopVideo();
-    // addVideoStream(myVideo, stream)
   }
 }
+
+const setStopVideo = () => {
+  const html = `<i class="fas fa-video"></i> <span>Stop Video</span> `
+  document.querySelector('.video-btn').innerHTML = html;
+}
+
+const setPlayVideo = () => {
+  const html = `<i class="stop fas fa-video-slash"></i> <span>Play Video</span>  `
+  document.querySelector('.video-btn').innerHTML = html;
+}
+
+// addVideoStream(myVideo, stream)
+// showInfo(myID);
 
 // const showInfo = (userId) =>{
 //   const th = document.createElement('div');
@@ -53,19 +58,3 @@ const playStop = () => {
 //   document.querySelector(".video__element").appendChild(th);
   // console.log(userId);
 // }
-
-const setStopVideo = () => {
-  const html = `
-    <i class="fas fa-video"></i>
-    <span>Stop Video</span>
-  `
-  document.querySelector('.video-btn').innerHTML = html;
-}
-
-const setPlayVideo = () => {
-  const html = `
-  <i class="stop fas fa-video-slash"></i>
-    <span>Play Video</span>
-  `
-  document.querySelector('.video-btn').innerHTML = html;
-}

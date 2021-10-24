@@ -29,15 +29,13 @@ app.get('/:id', (req, res) => {
   res.render('Room', { roomId: id });
 });
 
-// Handle 404 
-// app.use(function(req, res, next) {
-//   res.status(404).render("NotFound.html");
-// });
+app.get('*', (req, res) => {
+  res.render('NotFound')
+});
 
-// app.get('/NotFound', (req, res) => {
-//   res.status(404).render('NotFound.html')
-// });
-
+app.get('/NotFound', (req, res) => {
+  res.render('NotFound')
+});
 
 const users = {};
 io.on('connection', socket => {
@@ -94,18 +92,16 @@ io.on('connection', socket => {
     });
     // end manage media of participants
 
+    //delete user from list participant
     socket.on('disconnect', () => {
       socket.to(roomId).emit('user-disconnected', userId)
-      //delete user from list participant
       users[roomId] = users[roomId].filter((user) => user.id !== userId);
             if (users[roomId].length === 0) delete users[roomId];
             else io.in(roomId).emit("participants", users[roomId]);
-      // videoGrid.remove(stream)
     })
+          // videoGrid.remove(stream)
   })
 })
 
 
 server.listen(process.env.PORT||3030)
-
-

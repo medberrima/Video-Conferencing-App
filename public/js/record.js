@@ -46,8 +46,6 @@ function startRecord() {
                   const systemGain = context.createGain();
                   systemGain.gain.value = 1.0;
                   systemSource.connect(systemGain).connect(audioDestination);
-                  console.log("added system audio");
-
                   if (micStream && micStream.getAudioTracks().length > 0) {
                     const micSource = context.createMediaStreamSource(micStream);
                     const micGain = context.createGain();
@@ -55,7 +53,6 @@ function startRecord() {
                     micSource.connect(micGain).connect(audioDestination);
                     console.log("added mic audio");
                   }
-
                   audioDestination.stream.getAudioTracks().forEach(function(audioTrack) {
                       composedStream.addTrack(audioTrack);
                     });
@@ -115,7 +112,6 @@ function getStreamSuccess(stream) {
 }
 
 function RecordScreen() {
-
     /* use the stream */
     console.log("Start recording...");
     if (typeof MediaRecorder.isTypeSupported == "function") {
@@ -133,17 +129,11 @@ function RecordScreen() {
       mediaRecorder = new MediaRecorder(localStream);
     }
 
-    mediaRecorder.ondataavailable = function(e) {
-      chunks.push(e.data);
-    };
+    mediaRecorder.ondataavailable = function(e) { chunks.push(e.data);  };
+    mediaRecorder.onerror = function(e) { console.log("mediaRecorder.onerror: " + e); };
 
-    mediaRecorder.onerror = function(e) {
-      console.log("mediaRecorder.onerror: " + e);
-    };
-
-    mediaRecorder.onstart = function() {
+    mediaRecorder.onstart = function() { 
       console.log("mediaRecorder.onstart, mediaRecorder.state = " + mediaRecorder.state);
-
       localStream.getTracks().forEach(function(track) {
         if (track.kind == "audio") {
           console.log("onstart - Audio track.readyState=" + track.readyState + ", track.muted=" + track.muted);
@@ -154,9 +144,8 @@ function RecordScreen() {
       });
     };
 
+    console.log("mediaRecorder.onstop, mediaRecorder.state = " + mediaRecorder.state);
     mediaRecorder.onstop = function() {
-      console.log("mediaRecorder.onstop, mediaRecorder.state = " + mediaRecorder.state);
-
       var blob = new Blob(chunks, { type: "video/webm" });
       chunks = [];
 

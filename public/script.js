@@ -43,7 +43,7 @@ navigator.mediaDevices.getUserMedia({
 
   socket.on('user-connected', userId => {
     connectToNewUser(userId, stream);
-    console.log('user coonected ', userId)
+    console.log('user connected ', userId)
     joinedLeftNotif(userId, true);
     joinedLeftMsg(userId, true);
   })
@@ -59,18 +59,17 @@ navigator.mediaDevices.getUserMedia({
       joinedLeftMsg(userId);
     } 
     removeVideoElement(userId);
-      //adjusting size of videos in grid
-      // let totalUsers = document.getElementsByTagName("video").length;
-      // console.log(totalUsers);
-      // console.log(videoGrid.getElementsByTagName("video")[index].style.width);
-      // if (totalUsers >=1) {
-      //   for (let index = 0; index < totalUsers; index++) {
-      //     console.log(videoGrid.getElementsByTagName("video")[index].style.width);
-          // videoGrid.getElementsByTagName("video")[index].style.width = 100 / totalUsers + "%";
-          // videoGrid.getElementsByTagName("video")[index].style.height = 100 / totalUsers + "%";
-        // }
-      // }
   })
+    // adjusting size of videos in grid
+    // let totalUsers = document.getElementsByTagName("video").length;
+    // console.log(totalUsers);
+    // if (totalUsers >=1) {
+    //   for (let index = 0; index < totalUsers; index++) {
+    //     console.log(videoGrid.getElementsByTagName("video")[index].style.width);
+    //     videoGrid.getElementsByTagName("video")[index].style.width = 100 / totalUsers + "%";
+    //     videoGrid.getElementsByTagName("video")[index].style.height = 100 / totalUsers + "%";
+    //   }
+    // }
 })
 
 // joined / left user
@@ -91,8 +90,8 @@ peer.on('open', id => {
 const connectToNewUser = (userId, stream) => {
   const call = peer.call(userId, stream)
   const video = document.createElement('video')
-  console.log(userId);
   video.id = userId;
+  console.log(userId);
 
   call.on('stream', userVideoStream => {
     addVideoStream(video, userVideoStream)
@@ -127,11 +126,11 @@ const addVideoStream = (video, stream) => {
   // }
 }
 
-removeVideoElement = (id) =>{
-  console.log(id);
-  const element = document.getElementById(id)
-  element.remove()
-}
+// removeVideoElement = (id) =>{
+//   console.log(id);
+//   const element = document.getElementById(id)
+//   element.remove()
+// }
 
 //show-hide  main__left
 const isHidden = (screen) => screen.classList.contains("screen-hide");

@@ -3,19 +3,21 @@ const screenPreview = document.getElementById("screen-preview");
 function shareScreen(){
   const constraints = {video: {cursor: "always"},  audio: false  };
   navigator.mediaDevices.getDisplayMedia(constraints)
-  .then(screenStream => {
-    screenPreview.srcObject = screenStream ;
+  .then(stream => {
+    screenPreview.srcObject = stream ;
     screenPreview.addEventListener("loadedmetadata", () => {
       screenPreview.play();
     });
     
     peer.on('call', call => {
-      call.answer(screenStream)
-      call.on('stream', screenVideoStream => {
-        screenPreview.srcObject = screenVideoStream ;
-        screenPreview.addEventListener("loadedmetadata", () => {
-          screenPreview.play();
-        });
+      call.answer(stream)
+      const video = document.createElement('video')
+      call.on('stream', VideoStream => {
+        video.srcObject = VideoStream;
+        video.addEventListener('loadedmetadata', () => {
+          video.play();
+        })
+        videoGrid.append(video);
       })
     })
   })

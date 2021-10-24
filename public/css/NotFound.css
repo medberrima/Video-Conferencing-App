@@ -11,6 +11,10 @@
   font-weight: 300;
 }
 
+.no-match .no-match__content img {
+  height: 300px;
+}
+
 .no-match .no-match__content .btn {
   cursor: pointer;
   font-size: 16px;

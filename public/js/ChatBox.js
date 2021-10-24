@@ -9,6 +9,7 @@ input.addEventListener("keyup",(event)=> {
   }
 });
 
+//chatbox.js 
 sendMsg = () =>{
   let message = document.getElementById('chat-message').value;
   if (message.replace(/\s/g, '').length != 0   ){  
@@ -16,24 +17,21 @@ sendMsg = () =>{
     li.className ="message-right";
     li.innerHTML =
     `<div class="message__content">
-    <div class="message__text">
-    <span>${message}</span>
-    </div>
+      <div class="message__text"><span>${message}</span> </div>
     </div>`
     ul.appendChild(li);
     socket.emit('send-message', message) ;
   } 
 }
 
+//chatbox.js 
 socket.on('receive-message', (message, userId) =>{
   let li =document.createElement("li");
   li.className ="message-left";
   li.innerHTML =`<div class="message__avatar">${userId.substr(0,1)}</div>
   <div class="message__content">
     <span>${userId.substr(0,6)}</span>
-    <div class="message__text">
-      <span>${message}</span>
-    </div>
+    <div class="message__text"><span>${message}</span></div>
   </div>`
   ul.appendChild(li);
 })

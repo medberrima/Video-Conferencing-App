@@ -1,6 +1,5 @@
-
 setInterval(displayclock,500)
-// 2:52 Friday, August 27,2021 
+
 function displayclock(){
   let d= new Date()
   let hrs =d.getHours();
@@ -21,7 +20,5 @@ function displayclock(){
 
   document.querySelector('.time-header').innerHTML =`<span>${hrs} : ${min} | ${Jours} ${jj}/${mm}/${yy}</span>` ;
 
-
-  
 }
 
