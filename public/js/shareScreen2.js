@@ -18,17 +18,22 @@ function shareScreen(){
         addVideoStream(video, userVideoStream)
       })
     })
+
+    socket.emit('shareScreen')
+
   })
 }
 
+
+
 // socket.emit('share-screen',stream);
 
-// socket.on('shareScreen',(userId, x) =>{ 
-//   console.log(`${userId.substr(0, 6)} share screen`);
+socket.on('shareScreen',() =>{ 
+  console.log(` share screen`);
 
   // screenPreview.srcObject = x ;
   // screenPreview.addEventListener("loadedmetadata", () => {
   //   screenPreview.play();
   // });
-// })
+})
 
