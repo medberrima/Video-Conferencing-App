@@ -4,24 +4,18 @@ function shareScreen(){
   const constraints = {video: {cursor: "always"},  audio: false  };
   navigator.mediaDevices.getDisplayMedia(constraints)
   .then(stream => {
-    screenPreview.srcObject = stream ;
-    screenPreview.addEventListener("loadedmetadata", () => {
-      screenPreview.play();
+    myVideoStream = stream;
+    myVideo.srcObject = stream;
+    myVideo.addEventListener("loadedmetadata", () => {
+      myVideo.play();
     });
-    
+    selfVideoBox.append(myVideo);
+  
     peer.on('call', call => {
-      call.answer(stream);
-
+      call.answer(stream)
+      const video = document.createElement('video')
       call.on('stream', userVideoStream => {
-        screenPreview.srcObject = userVideoStream ;
-        screenPreview.addEventListener("loadedmetadata", () => {
-          screenPreview.play();
-        });
-        console.log('from call stream share ');
-      })
-    
-      call.on('close', () => {
-        console.log('close stream')
+        addVideoStream(video, userVideoStream)
       })
     })
   })
