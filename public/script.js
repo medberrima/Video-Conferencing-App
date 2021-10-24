@@ -54,11 +54,11 @@ navigator.mediaDevices.getUserMedia({
   socket.on('user-disconnected', userId => {
     if (peers[userId]){
       console.log("user disconnected!", userId);
+      removeVideoElement(userId);
       peers[userId].close();
       joinedLeftNotif(userId);
       joinedLeftMsg(userId);
     } 
-    // removeVideoElement(userId);
   })
     // adjusting size of videos in grid
     // let totalUsers = document.getElementsByTagName("video").length;
@@ -72,11 +72,11 @@ navigator.mediaDevices.getUserMedia({
     // }
 })
 
-// removeVideoElement = (id) =>{
-//   console.log(id);
-//   var element = document.getElementById(id) ;
-//   element.remove()
-// }
+removeVideoElement = (id) =>{
+  console.log(id);
+  var element = document.getElementById(id) ;
+  element.remove()
+}
 
 // joined / left user
 const joinedLeftNotif=(userId, join = false)=>{
