@@ -27,7 +27,6 @@ navigator.mediaDevices.getUserMedia({
 }).then(stream => {
   myVideoStream = stream;
   myVideo.srcObject = stream;
-
   myVideo.addEventListener("loadedmetadata", () => {
     myVideo.play();
   });
@@ -54,8 +53,7 @@ navigator.mediaDevices.getUserMedia({
   socket.on('user-disconnected', userId => {
     if (peers[userId]){
       console.log("user disconnected!", userId);
-      // removeVideoElement(userId);
-      // peers[userId].close();
+      peers[userId].close();
       joinedLeftNotif(userId);
       joinedLeftMsg(userId);
     } 
@@ -71,12 +69,6 @@ navigator.mediaDevices.getUserMedia({
     //   }
     // }
 })
-
-// removeVideoElement = (id) =>{
-//   console.log(id);
-//   var element = document.getElementById(id) ;
-//   element.remove()
-// }
 
 // joined / left user
 const joinedLeftNotif=(userId, join = false)=>{
@@ -99,21 +91,21 @@ const connectToNewUser = (userId, stream) => {
   video.id = userId;
 
   call.on('stream', userVideoStream => {
-    addVideoStream(video, userVideoStream)
+    addVideoStream(video, userVideoStream, userId)
     console.log('from call stream '+userId);
-    video.id = userId;
   })
 
-  // call.on('close', () => {
-  //   var element = document.getElementById(userId) ;
-  //   element.remove()
-  // })
+  call.on('close', () => {
+    const element = document.getElementById(userId) ;
+    element.remove()
+  })
   peers[userId] = call;
 }
 
 //append users videos to grid
-const addVideoStream = (video, stream) => {
+const addVideoStream = (video, stream,userId) => {
   video.srcObject = stream;
+  video.id = userId;
   video.addEventListener('loadedmetadata', () => {
     video.play();
   })
