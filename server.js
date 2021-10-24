@@ -20,6 +20,10 @@ app.get('/', (req, res) => {
   res.render('Home')
 });
 
+app.get('/NotFound', (req, res) => {
+  res.render('NotFound')
+});
+
 app.get('/room', (req, res) => {
   res.redirect(`/${shortid.generate()}`);
 });
@@ -29,13 +33,11 @@ app.get('/:id', (req, res) => {
   res.render('Room', { roomId: id });
 });
 
-app.get('*', (req, res) => {
-  res.render('NotFound')
-});
+// app.get('*', (req, res) => {
+//   res.render('NotFound')
+// });
 
-app.get('/NotFound', (req, res) => {
-  res.render('NotFound')
-});
+
 
 const users = {};
 io.on('connection', socket => {
@@ -54,10 +56,10 @@ io.on('connection', socket => {
     })
 
     //share screen
-    socket.on('share-screen',(x)=> {
+    socket.on('share-screen',(stream)=> {
       //send screen to the same room
       // console.log(userId);
-      io.in(roomId).emit('shareScreen', userId, x)
+      io.in(roomId).emit('shareScreen', userId, stream)
     }); 
 
     //start manage media of participants

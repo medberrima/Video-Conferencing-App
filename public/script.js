@@ -72,6 +72,12 @@ navigator.mediaDevices.getUserMedia({
     // }
 })
 
+removeVideoElement = (id) =>{
+  console.log(id);
+  var element = document.getElementById(id) ;
+  element.remove()
+}
+
 // joined / left user
 const joinedLeftNotif=(userId, join = false)=>{
   document.getElementById('notification').style.display="block " ;
@@ -91,16 +97,17 @@ const connectToNewUser = (userId, stream) => {
   const call = peer.call(userId, stream)
   const video = document.createElement('video')
   video.id = userId;
-  console.log(userId);
+  console.log('fromconnectToNewUser '+userId);
 
   call.on('stream', userVideoStream => {
     addVideoStream(video, userVideoStream)
+    console.log('from call stream '+userId);
     video.id = userId;
   })
 
   call.on('close', () => {
-    video.remove();
-    videoGrid.remove(video);
+    var element = document.getElementById(userId) ;
+    element.remove()
   })
   peers[userId] = call;
 }
@@ -126,11 +133,7 @@ const addVideoStream = (video, stream) => {
   // }
 }
 
-// removeVideoElement = (id) =>{
-//   console.log(id);
-//   const element = document.getElementById(id)
-//   element.remove()
-// }
+
 
 //show-hide  main__left
 const isHidden = (screen) => screen.classList.contains("screen-hide");
