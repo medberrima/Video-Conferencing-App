@@ -8,6 +8,17 @@ shareScreen = () =>{
     screenPreview.addEventListener("loadedmetadata", () => {
       screenPreview.play();
     });
+
+    peer.on('call', call => {
+      call.answer(stream)
+
+      call.on('stream', userVideoStream => {
+        screenPreview.srcObject = userVideoStream ;
+        screenPreview.addEventListener("loadedmetadata", () => {
+          screenPreview.play();
+        });
+      })
+    })
     socket.emit('share-screen',stream);
   })
 }
@@ -16,9 +27,14 @@ shareScreen = () =>{
 socket.on('shareScreen',(userId, screenStream) =>{ 
   console.log(`${userId.substr(0, 6)} share screen`);
 
-  screenPreview.srcObject = screenStream ;
-  screenPreview.addEventListener("loadedmetadata", () => {
-    screenPreview.play();
-  });
+  const call = peer.call(userId, screenStream)
+
+  call.on('stream', userVideoStream => {
+    screenPreview.srcObject = userVideoStream ;
+    screenPreview.addEventListener("loadedmetadata", () => {
+      screenPreview.play();
+    });
+  })
+  peers[userId] = call;
 })
 
