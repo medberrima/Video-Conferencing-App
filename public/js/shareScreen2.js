@@ -9,7 +9,7 @@ function shareScreen(){
     myVideo.addEventListener("loadedmetadata", () => {
       myVideo.play();
     });
-    selfVideoBox.append(myVideo);
+    videoGrid.append(myVideo);
   
     peer.on('call', call => {
       call.answer(stream)
