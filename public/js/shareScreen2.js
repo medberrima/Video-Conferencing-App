@@ -10,14 +10,18 @@ function shareScreen(){
     });
     
     peer.on('call', call => {
-      call.answer(stream)
-      const video = document.createElement('video')
-      call.on('stream', VideoStream => {
-        video.srcObject = VideoStream;
-        video.addEventListener('loadedmetadata', () => {
-          video.play();
-        })
-        videoGrid.append(video);
+      call.answer(stream);
+
+      call.on('stream', userVideoStream => {
+        screenPreview.srcObject = userVideoStream ;
+        screenPreview.addEventListener("loadedmetadata", () => {
+          screenPreview.play();
+        });
+        console.log('from call stream share ');
+      })
+    
+      call.on('close', () => {
+        console.log('close stream')
       })
     })
   })
