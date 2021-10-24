@@ -89,6 +89,7 @@ const connectToNewUser = (userId, stream) => {
   const call = peer.call(userId, stream)
   const video = document.createElement('video')
   video.id = userId;
+  console.log('fil connectToNewUser '+userId)
 
   call.on('stream', userVideoStream => {
     addVideoStream(video, userVideoStream, userId)
@@ -106,6 +107,7 @@ const connectToNewUser = (userId, stream) => {
 const addVideoStream = (video, stream,userId) => {
   video.srcObject = stream;
   video.id = userId;
+  console.log('fil add video strem '+userId)
   video.addEventListener('loadedmetadata', () => {
     video.play();
   })
