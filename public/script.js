@@ -92,7 +92,8 @@ const connectToNewUser = (userId, stream) => {
   console.log('fil connectToNewUser '+userId)
 
   call.on('stream', userVideoStream => {
-    addVideoStream(video, userVideoStream)
+    addVideoStream(video, userVideoStream, userId)
+    video.id = userId;
     console.log('from call stream '+userId);
   })
 
@@ -104,8 +105,9 @@ const connectToNewUser = (userId, stream) => {
 }
 
 //append users videos to grid
-const addVideoStream = (video, stream) => {
+const addVideoStream = (video, stream,userId) => {
   video.srcObject = stream;
+  video.id = userId;
   video.addEventListener('loadedmetadata', () => {
     video.play();
   })
