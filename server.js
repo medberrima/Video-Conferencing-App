@@ -57,8 +57,6 @@ io.on('connection', socket => {
 
     //share screen
     socket.on('share-screen',(stream)=> {
-      //send screen to the same room
-      // console.log(userId);
       io.in(roomId).emit('shareScreen', userId, stream)
     }); 
 

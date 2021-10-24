@@ -4,22 +4,11 @@ function shareScreen(){
   const constraints = {video: {cursor: "always"},  audio: false  };
   navigator.mediaDevices.getDisplayMedia(constraints)
   .then(stream => {
-    myVideoStream = stream;
-    myVideo.srcObject = stream;
-    myVideo.addEventListener("loadedmetadata", () => {
-      myVideo.play();
+    screenPreview.srcObject = stream ;
+    screenPreview.addEventListener("loadedmetadata", () => {
+      screenPreview.play();
     });
-    videoGrid.append(myVideo);
-  
-    peer.on('call', call => {
-      call.answer(stream)
-      const video = document.createElement('video')
-      call.on('stream', userVideoStream => {
-        addVideoStream(video, userVideoStream)
-      })
-    })
 
-    socket.emit('shareScreen')
 
   })
 }
