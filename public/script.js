@@ -54,8 +54,8 @@ navigator.mediaDevices.getUserMedia({
   socket.on('user-disconnected', userId => {
     if (peers[userId]){
       console.log("user disconnected!", userId);
-      removeVideoElement(userId);
-      peers[userId].close();
+      // removeVideoElement(userId);
+      // peers[userId].close();
       joinedLeftNotif(userId);
       joinedLeftMsg(userId);
     } 
@@ -72,11 +72,11 @@ navigator.mediaDevices.getUserMedia({
     // }
 })
 
-removeVideoElement = (id) =>{
-  console.log(id);
-  var element = document.getElementById(id) ;
-  element.remove()
-}
+// removeVideoElement = (id) =>{
+//   console.log(id);
+//   var element = document.getElementById(id) ;
+//   element.remove()
+// }
 
 // joined / left user
 const joinedLeftNotif=(userId, join = false)=>{
@@ -97,7 +97,6 @@ const connectToNewUser = (userId, stream) => {
   const call = peer.call(userId, stream)
   const video = document.createElement('video')
   video.id = userId;
-  console.log('fromconnectToNewUser '+userId);
 
   call.on('stream', userVideoStream => {
     addVideoStream(video, userVideoStream)
@@ -105,10 +104,10 @@ const connectToNewUser = (userId, stream) => {
     video.id = userId;
   })
 
-  call.on('close', () => {
-    var element = document.getElementById(userId) ;
-    element.remove()
-  })
+  // call.on('close', () => {
+  //   var element = document.getElementById(userId) ;
+  //   element.remove()
+  // })
   peers[userId] = call;
 }
 
