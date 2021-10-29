@@ -33,9 +33,9 @@ app.get('/:id', (req, res) => {
   res.render('Room', { roomId: id });
 });
 
-// app.get('*', (req, res) => {
-//   res.render('NotFound')
-// });
+app.get('*', (req, res) => {
+  res.redirect('/NotFound');
+});
 
 
 

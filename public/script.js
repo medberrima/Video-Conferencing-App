@@ -8,7 +8,7 @@ console.log("test script") ;
 const peer = new Peer(undefined, {
   path: '/peerjs',
   host: '/',
-  port: '443'
+  port: '3030'
 });
 
 const users = {};
@@ -88,18 +88,16 @@ peer.on('open', id => {
 const connectToNewUser = (userId, stream) => {
   const call = peer.call(userId, stream)
   const video = document.createElement('video')
-  video.id = userId;
-  console.log('fil connectToNewUser '+userId)
+  video.id = userId ;
 
   call.on('stream', userVideoStream => {
     addVideoStream(video, userVideoStream, userId)
-    video.id = userId;
-    console.log('from call stream '+userId);
+    console.log('call.on stream : '+userId);
   })
 
   call.on('close', () => {
-    const element = document.getElementById(userId) ;
-    element.remove()
+    video.remove();
+    document.getElementById(userId).remove();
   })
   peers[userId] = call;
 }
