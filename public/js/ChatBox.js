@@ -20,6 +20,7 @@ sendMsg = () =>{
       <div class="message__text"><span>${message}</span> </div>
     </div>`
     ul.appendChild(li);
+    input.value ="" ;
     socket.emit('send-message', message) ;
   } 
 }

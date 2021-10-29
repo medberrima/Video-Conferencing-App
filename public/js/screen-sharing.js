@@ -7,16 +7,17 @@ screenPreview.style.display="none"
 shareScreen = () =>{  
   if(screenPreview.style.display=="none"){
     startShare();   
+    socket.emit('share-screen'); 
   }else{
     stopShare();
   }
 };
 
-function startShare(err){
+startShare = (err) =>{
   var constraints = {video: {cursor: "always"},  audio: false  };
   navigator.mediaDevices.getDisplayMedia(constraints)
   .then(function(stream) {
-    socket.emit('screen-share', stream); 
+    
     screenPreview.srcObject = stream;
     screenPreview.onloadedmetadata = function(e) {
       screenPreview.play();
@@ -36,7 +37,7 @@ function startShare(err){
 }
 
 
-async function stopShare(err){
+stopShare = err =>{
   const stream = screenPreview.srcObject;
   const tracks = stream.getTracks();
   tracks.forEach(function(track) {
@@ -51,7 +52,7 @@ async function stopShare(err){
 
 
 
-socket.on('screenShare', (userId,stream) =>{
+socket.on('screenShare', (userId) =>{
   const date = new Date();
   let hours = date.getHours();
   let minutes = date.getMinutes();
