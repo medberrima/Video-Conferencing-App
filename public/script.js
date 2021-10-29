@@ -8,7 +8,7 @@ console.log("test script") ;
 const peer = new Peer(undefined, {
   path: '/peerjs',
   host: '/',
-  port: '3030'
+  port: '443'
 });
 
 const users = {};
@@ -51,12 +51,12 @@ navigator.mediaDevices.getUserMedia({
 
   //user disconnected
   socket.on('user-disconnected', userId => {
-    // if (peers[userId]){
+    if (peers[userId]){
       console.log("user disconnected!", userId);
-      // peers[userId].close();
       joinedLeftNotif(userId);
       joinedLeftMsg(userId);
-    // } 
+      peers[userId].close() ;
+    } 
   })
     // adjusting size of videos in grid
     // let totalUsers = document.getElementsByTagName("video").length;
