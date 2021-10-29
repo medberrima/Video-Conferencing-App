@@ -53,7 +53,7 @@ navigator.mediaDevices.getUserMedia({
   socket.on('user-disconnected', userId => {
     // if (peers[userId]){
       console.log("user disconnected!", userId);
-      peers[userId].close();
+      // peers[userId].close();
       joinedLeftNotif(userId);
       joinedLeftMsg(userId);
     // } 
