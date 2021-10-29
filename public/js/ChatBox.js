@@ -25,7 +25,6 @@ sendMsg = () =>{
   } 
 }
 
-//chatbox.js 
 socket.on('receive-message', (message, userId) =>{
   let li =document.createElement("li");
   li.className ="message-left";
@@ -35,6 +34,12 @@ socket.on('receive-message', (message, userId) =>{
     <div class="message__text"><span>${message}</span></div>
   </div>`
   ul.appendChild(li);
+
+  document.getElementById('notification').style.display="block " ;
+  document.getElementById('notification').innerHTML=`<h4> <span> ${userId.substr(0,6)} : </span>  ${message}</h4>`
+  setTimeout( () => {
+    document.getElementById('notification').style.display="none "
+  }, 3000);
 })
 
 

@@ -105,7 +105,6 @@ const connectToNewUser = (userId, stream) => {
 //append users videos to grid
 const addVideoStream = (video, stream,userId) => {
   video.srcObject = stream;
-  video.id = userId;
   video.addEventListener('loadedmetadata', () => {
     video.play();
   })
