@@ -51,12 +51,12 @@ navigator.mediaDevices.getUserMedia({
 
   //user disconnected
   socket.on('user-disconnected', userId => {
-    if (peers[userId]){
+    // if (peers[userId]){
       console.log("user disconnected!", userId);
       peers[userId].close();
       joinedLeftNotif(userId);
       joinedLeftMsg(userId);
-    } 
+    // } 
   })
     // adjusting size of videos in grid
     // let totalUsers = document.getElementsByTagName("video").length;
