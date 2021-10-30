@@ -97,7 +97,7 @@ const connectToNewUser = (userId, stream) => {
 
   call.on('close', () => {
     video.remove();
-    document.getElementById(userId).remove();
+    // document.getElementById(userId).remove();
   })
   peers[userId] = call;
 }
