@@ -3,7 +3,7 @@ const videoGrid = document.getElementById('video-grid');
 const selfVideoBox = document.getElementById('self-video-box')
 const mainVideos = document.getElementById("main__videos");
 
-console.log("test script") ;
+console.log("script.js work ") ;
 
 const peer = new Peer(undefined, {
   path: '/peerjs',
